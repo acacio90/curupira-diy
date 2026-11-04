@@ -1,5 +1,5 @@
-<div align="center">
-  <img src="arte/curupira_logo.png" alt="CURUPIRA" width="160">
+ <div align="center">
+  <img src="arte/curupira_rosto_cor.png" alt="CURUPIRA" width="180">
 
   # CURUPIRA
 
@@ -37,13 +37,21 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 - **Em andamento:** remapeamento do microSD (J4 → módulo 3,3 V real) e novo **arranjo "handheld"** (DevKit na base, tela ao centro, botões no polegar). **Ainda não fabricada.**
 - Plano: validar tudo na **protoboard** antes de mandar fabricar.
 
+## Renders
+
+![Todas as vistas da placa](renders/visao-geral.png)
+
+Para atualizar depois de mexer na placa ou no esquemático: `./renders/gerar.sh`
+
 ## Estrutura
 
 ```
 cardputer-v0.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
 GUIA.md                 → mapa de pinos (GPIO ↔ cada conector)
 production/             → Gerbers (JLCPCB), BOM, renders 3D
-arte/                   → logo CURUPIRA
+renders/                → renders atuais da placa e do esquemático (gerar.sh recria tudo)
+3d/                     → modelo 3D (STEP) do ESP32-S3-DevKitC-1 usado no U1
+arte/                   → logo CURUPIRA: rosto colorido (README), rosto e corpo em P&B (serigrafia), versões transparentes
 production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 ```
 

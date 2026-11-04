@@ -131,6 +131,29 @@ ler os botões; depois a tela com TFT_eSPI ou LovyanGFX.
 - Texto "BAT" aumentado para o mínimo da JLCPCB (1,0 mm).
 - Projeto renomeado para **CURUPIRA** (frente: "CURUPIRA v0.3"; verso: logo do Curupira — cabelo em chamas e pés virados — atrás da tela).
 
+## Depois da v0.3 (em andamento — arranjo "handheld")
+
+> A placa roteada da v0.3 está só nos Gerbers (`production/`). O `.kicad_pcb` atual está
+> **sem trilhas e sem plano de GND** (90 ligações pendentes no DRC), porque os componentes
+> estão sendo reposicionados.
+
+- **Serigrafia da frente corrigida**: cada rótulo (CIMA, OK, BAIXO, VOLTAR, I2C, SPI, GPS, SOM,
+  microSD, IR, LIGA, BAT +/−) agora fica junto da peça certa. O nome saiu da frente.
+- **Identidade no verso**: rosto do Curupira + "CURUPIRA" na fonte **Bungee** (polígonos, não
+  depende da fonte instalada) + linha "v0.3 – ESP32-S3 – Bruce" (texto normal, fácil de editar).
+  Fica na faixa livre entre as fileiras de pinos do DevKit. Arte em `arte/curupira_verso_pcb.png`;
+  fonte e licença (SIL OFL) em `arte/fontes/`.
+- **Modelo 3D do DevKit**: `3d/ESP32-S3-DevKitC-1.step` (SnapMagic; o arquivo "N16" é o modelo
+  do N8R2 — mesmas dimensões). Ligado ao U1 com `${KIPRJMOD}`, girado 90°, deslocado 3,34 mm e
+  elevado 8,5 mm, em cima de 2× barras fêmea 1x22 (só no 3D).
+- **Altura**: com o DevKit encaixado, o conjunto fica com ~16 mm acima da placa — considerar no case.
+- **USB**: no arranjo atual as portas USB do DevKit ficam a ~15 mm da borda direita, **não**
+  rentes à borda como na v0.3. Corrigir isso no arranjo final, senão o cabo não entra com a placa no case.
+- **Renders**: `renders/` (fundo transparente), recriados com `./renders/gerar.sh`.
+- **Atenção — strapping**: o alto-falante (J7) usa GPIO **3, 45 e 46**, que estão na lista "Evite"
+  acima. O mais delicado é o **GPIO45** (nível alto no boot muda a tensão da flash e o ESP32 pode
+  não iniciar). Testar na protoboard com o MAX98357A ligado antes de fabricar.
+
 ## Furos de fixação (v0.2)
 
 Placa 100 × 100 mm com 4 furos **M3 (3,2 mm, sem cobre)** nos cantos, a 3,5 mm das bordas → **93 × 93 mm entre centros**. Use espaçadores de ≥10 mm embaixo.
