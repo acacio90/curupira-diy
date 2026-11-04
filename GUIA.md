@@ -8,7 +8,7 @@ com uma placa simples, que já é o "esqueleto" do CURUPIRA:
 - 4 botões táteis (navegação: cima, baixo, OK, voltar)
 - 1 LED + resistor (o "hello world" do hardware)
 - Conector **Qwiic/Grove I2C** (para o CardKB ou um PN532)
-- Barra de expansão SPI (para CC1101 / NRF24 no futuro)
+- Conectores 2×4 para CC1101 (J3) e NRF24 (J9)
 
 Tudo componente PTH (furo passante) → fácil de soldar com ferro comum.
 
@@ -28,10 +28,10 @@ Tudo componente PTH (furo passante) → fácil de soldar com ferro comum.
 | Tela DC | 9 | |
 | Tela RST | 14 | |
 | Tela BLK (backlight) | 21 | dá para usar PWM para brilho |
-| Expansão CS1 | 15 | ex.: CC1101 |
-| Expansão CS2 | 16 | ex.: NRF24 |
-| Expansão extra (GDO0/IRQ) | 17 | interrupção do módulo (GDO0 do CC1101) |
-| Expansão NRF_CE | 40 | J3 pino 9 → CE do NRF24 |
+| CC1101 CS | 15 | J3 pino 4 (CSN) |
+| NRF24 CS | 16 | J9 pino 4 (CSN) |
+| CC1101 GDO0 (IRQ) | 17 | J3 pino 3 |
+| NRF24 CE | 40 | J9 pino 3 |
 | I2C SDA | 8 | Qwiic/Grove |
 | I2C SCL | 18 | |
 | Botão CIMA | 4 | botão → GND, usar pull-up interno |
@@ -44,13 +44,12 @@ Tudo componente PTH (furo passante) → fácil de soldar com ferro comum.
 | **v0.1** IR RX | 42 | saída do TSOP38238 |
 | **v0.1** Bateria (ADC) | 1 | divisor 100k/100k → lê metade da tensão da bateria |
 | **v0.1** VIN | pino 5V | J5 (OUT do TP4056) → chave LIGA → 1N5817 → 5V do DevKit |
-| **v0.1** GPS_TX (ESP RX) | 39 | J6 pino 3 → ligar no **TX** do GPS |
-| **v0.2** Alto-falante BCLK | 3 | J7 pino 3 → BCLK do MAX98357A |
-| **v0.2** Alto-falante WS/LRC | 45 | J7 pino 4 → LRC do MAX98357A |
-| **v0.2** Alto-falante DIN | 46 | J7 pino 5 → DIN do MAX98357A (J7 pino 2 = VIN, alimentação do módulo) |
+| **v0.1** GPS_TX (ESP RX) | 39 | J6 pino 3 → **TX** do GPS |
+| Buzzer | 3 | R9 1k → base do Q2 (BC337); buzzer passivo BZ1 entre 3V3 e o coletor, com 1N4148 (D4) em paralelo. Tocar com PWM/`tone()` |
+| *(livres)* | 45, 46 | liberados com a saída do alto-falante (eram LRC/DIN do MAX98357A) |
 | **v0.2** I2C extra | 8 / 18 | J8 em paralelo com o J2 (GND, 3V3, SDA, SCL) |
 | LED RGB do DevKit | 38 | só no DevKit **v1.1** (no v1.0 ele fica no 48, junto com o GPS) |
-| **v0.1** GPS_RX (ESP TX) | 48 | J6 pino 4 → ligar no **RX** do GPS (em algumas versões do DevKit o 48 também aciona o LED RGB — inofensivo) |
+| **v0.1** GPS_RX (ESP TX) | 48 | J6 pino 2 → **RX** do GPS (em algumas versões do DevKit o 48 também aciona o LED RGB — inofensivo) |
 
 Alimentação: tudo em **3V3** (pino 3V3 do DevKit). Não use 5V nos módulos de rádio.
 
@@ -137,7 +136,7 @@ ler os botões; depois a tela com TFT_eSPI ou LovyanGFX.
 > **sem trilhas e sem plano de GND** (90 ligações pendentes no DRC), porque os componentes
 > estão sendo reposicionados.
 
-- **Serigrafia da frente corrigida**: cada rótulo (CIMA, OK, BAIXO, VOLTAR, I2C, SPI, GPS, SOM,
+- **Serigrafia da frente corrigida**: cada rótulo (CIMA, OK, BAIXO, VOLTAR, I2C, SPI, GPS,
   microSD, IR, LIGA, BAT +/−) agora fica junto da peça certa. O nome saiu da frente.
 - **Identidade no verso**: rosto do Curupira + "CURUPIRA" na fonte **Bungee** (polígonos, não
   depende da fonte instalada) + linha "v0.3 – ESP32-S3 – Bruce" (texto normal, fácil de editar).
@@ -150,9 +149,40 @@ ler os botões; depois a tela com TFT_eSPI ou LovyanGFX.
 - **USB**: no arranjo atual as portas USB do DevKit ficam a ~15 mm da borda direita, **não**
   rentes à borda como na v0.3. Corrigir isso no arranjo final, senão o cabo não entra com a placa no case.
 - **Renders**: `renders/` (fundo transparente), recriados com `./renders/gerar.sh`.
-- **Atenção — strapping**: o alto-falante (J7) usa GPIO **3, 45 e 46**, que estão na lista "Evite"
-  acima. O mais delicado é o **GPIO45** (nível alto no boot muda a tensão da flash e o ESP32 pode
-  não iniciar). Testar na protoboard com o MAX98357A ligado antes de fabricar.
+- **Som: alto-falante → buzzer**: o MAX98357A (J7, I2S em GPIO 3/45/46) saiu. No lugar entrou um
+  **buzzer passivo** (BZ1) acionado pelo GPIO3 via R9 1k + Q2 BC337, com diodo 1N4148 (D4) contra o
+  pico da bobina — mesmo esquema do IR TX. Isso libera os GPIO **45 e 46** (strapping; o 45 podia
+  impedir o boot). O GPIO3 também é de strapping, mas só pesa com eFuse de JTAG gravado; com a base
+  do transistor ele fica em nível baixo no boot. Faz bipes e melodias simples (PWM), não toca áudio.
+
+## Arranjo em dois lados (tudo dentro do contorno)
+
+Requisito: com os módulos **encaixados** (barra macho no módulo → barra fêmea na placa), nada passa da
+borda de 100 × 100 mm. Para fora do case saem só: USB do DevKit, USB-C do TP4056, 2 antenas SMA,
+cartão microSD, chave LIGA e a janela do IR.
+
+| Lado | Peça | Conector | Ordem dos pinos (= ordem do módulo) |
+|---|---|---|---|
+| Frente | Tela ST7789 (deitada, barra em L) | J1 1×8 | GND, VCC, SCL, SDA, RES, DC, CS, BLK |
+| Frente | GPS GY-NEO6MV2 (antena para cima) | J6 1×4 | VCC, RX, TX, GND |
+| Frente | Bateria LiPo (área livre embaixo dos botões) | J5 (fios do TP4056) | + , − |
+| Verso | ESP32-S3-DevKitC-1, **USB rente à borda esquerda** | U1 2×22 | — |
+| Verso | PN532 V3 (I2C) | J2 1×4 | **1 SCL · 2 SDA · 3 VCC · 4 GND** (módulo encaixado de face pra fora inverte a ordem impressa nele) |
+| Verso | CC1101 E07-M1101D + SMA (borda direita) | J3 2×4 | módulo encaixado de face pra fora → **pino do J3 ≠ pino do módulo**: J3-1 MISO(7) · J3-2 livre(8) · J3-3 SCK(5) · J3-4 MOSI(6) · J3-5 GDO0(3) · J3-6 CSN(4) · J3-7 GND(1) · J3-8 VCC(2) |
+| Verso | NRF24L01+PA+LNA + SMA (borda direita) | J9 2×4 | 1 GND · 2 VCC · 3 CE · 4 CSN · 5 SCK · 6 MOSI · 7 MISO · 8 IRQ (livre) |
+| Verso | microSD 3,3 V (cartão na borda esquerda) | J4 1×6 | 3V3, CS, MOSI, CLK, MISO, GND |
+| Verso | CardKB (cabo Grove) | J8 1×4 | GND, 3V3, SDA, SCL |
+
+> ⚠️ As ordens de CC1101 e GY-NEO6MV2 são as dos módulos mais comuns — **confira no seu módulo**
+> antes de soldar a barra macho. Medidas usadas no estudo: tela 1,9" ~53×30 mm, PN532 ~43×41,
+> CC1101 ~41×15 (com SMA), NRF24 PA+LNA ~41×15,5, GPS 25×36, microSD 18,5×17,5, TP4056 28×17.
+> A zona "ANTENA" (sem cobre) acompanha a ponta da antena do DevKit no verso.
+>
+> **Modelos 3D** (pasta `3d/`, baixados do GrabCAD/SnapMagic): DevKit, tela GMT020-02, CC1101 E07-M1101D,
+> NRF24L01+PA+LNA, PN532 V3, TP4056 USB-C, GPS NEO-6M. O microSD usa um **substituto visual** (OpenLog da SparkFun,
+> mesmo tamanho e barra de 6 pinos) até achar o modelo do módulo real. GPS: NEO-6M (GY-NEO6MV2) no J6.
+> O TP4056 vai colado no verso (fita dupla-face), USB-C na borda direita, ligado por fios ao J5 —
+> fica a ~1–2 mm da zona da antena do ESP32: se o Wi-Fi ficar fraco, afastar.
 
 ## Furos de fixação (v0.2)
 
@@ -162,4 +192,4 @@ Placa 100 × 100 mm com 4 furos **M3 (3,2 mm, sem cobre)** nos cantos, a 3,5 mm 
 
 - v1: bateria LiPo + TP4056 + chave liga/desliga + leitura de tensão no ADC
 - v2: teclado (CardKB no Qwiic → depois matriz própria com TCA8418)
-- v3: microSD, áudio I2S (MAX98357A), IR, case
+- v3: microSD, buzzer, IR, case
