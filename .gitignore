@@ -1,0 +1,21 @@
+# === KiCad: arquivos locais / gerados ===
+*.kicad_prl            # preferências locais do projeto (por usuário)
+~*.lck                 # locks de editor aberto
+_autosave-*            # autosave do KiCad
+*-backups/             # pasta de backups automáticos do KiCad
+fp-info-cache          # cache de footprints
+*.bak
+*~
+
+# === Histórico local do editor (VS Code etc.) ===
+.history/
+
+# === Backups de trabalho (o git já é o histórico) ===
+.bak-*/
+
+# === Sistema ===
+.DS_Store
+Thumbs.db
+
+# lock files (reforço)
+*.lck
