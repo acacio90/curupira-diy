@@ -5,7 +5,7 @@
 	(uuid "ce8043db-ca9c-469c-a565-7619a05b7664")
 	(paper "A4")
 	(title_block
-		(title "Cardputer DIY v0 - placa de estudo")
+		(title "CURUPIRA DIY v0 - placa de estudo")
 		(date "2026-11-02")
 		(rev "0")
 		(comment 1 "ESP32-S3-DevKitC-1 N16R8 + ST7789 + 4 botoes + LED + Qwiic + expansao SPI")
@@ -5158,7 +5158,7 @@
 			(uuid "b6d116ac-2a16-4bcb-873a-9b7fe993a352")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR01")
 					(unit 1)
@@ -5258,7 +5258,7 @@
 			(uuid "08fb97d0-5a1f-4b77-91d0-5a3da67423de")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J1")
 					(unit 1)
@@ -5466,7 +5466,7 @@
 			(uuid "dca5b96d-dc0a-4c9c-b51c-c9cf6a8c195f")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "U1")
 					(unit 1)
@@ -5580,7 +5580,7 @@
 			(uuid "6fc99db2-7f49-4338-89f1-01b6adee2244")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#FLG01")
 					(unit 1)
@@ -5694,7 +5694,7 @@
 			(uuid "3c0eba3b-cc38-4b59-9e2a-4754fd4137aa")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR02")
 					(unit 1)
@@ -5772,7 +5772,7 @@
 			(uuid "06c45cd0-84d6-4d84-9806-dc6cb6c5be1b")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#FLG02")
 					(unit 1)
@@ -5938,7 +5938,7 @@
 			(uuid "93e434ad-d43b-481f-b060-9a02bda637b2")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR03")
 					(unit 1)
@@ -6036,7 +6036,7 @@
 			(uuid "13b99ca7-70bd-4ed2-9582-56a3a2024dea")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR04")
 					(unit 1)
@@ -6236,7 +6236,7 @@
 			(uuid "dd11ecb5-8f8f-4a53-b127-1bf524014816")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "SW1")
 					(unit 1)
@@ -6336,7 +6336,7 @@
 			(uuid "cc4d420f-36b7-42e5-8312-7a8242dad9b9")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "SW2")
 					(unit 1)
@@ -6436,7 +6436,7 @@
 			(uuid "19cf976c-797e-4ab9-98aa-822270f74935")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "SW3")
 					(unit 1)
@@ -6536,7 +6536,7 @@
 			(uuid "acb134a9-686c-43f8-a40f-fe8b8abe30d2")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "SW4")
 					(unit 1)
@@ -6692,7 +6692,7 @@
 			(uuid "f6f43283-cd73-47a7-b096-22a734502796")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR05")
 					(unit 1)
@@ -6792,7 +6792,7 @@
 			(uuid "c9d0b74d-cf7b-42ff-88d3-301e16881734")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R1")
 					(unit 1)
@@ -6881,7 +6881,7 @@
 			(uuid "561ea587-4997-45e5-9e9c-45677b4b6265")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "D1")
 					(unit 1)
@@ -6978,7 +6978,7 @@
 			(uuid "cdd146a3-33ce-4ff4-979d-556756f8ac12")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR06")
 					(unit 1)
@@ -7118,7 +7118,7 @@
 			(uuid "1a4cab6a-2f81-4603-8661-bda9a85aa9d8")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J2")
 					(unit 1)
@@ -7206,7 +7206,7 @@
 			(uuid "6e467e1e-9b4a-4a51-a73a-07a5dbb85270")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR07")
 					(unit 1)
@@ -7303,7 +7303,7 @@
 			(uuid "6ea1950d-6f3e-442c-80c8-4cc31f58cfd9")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR08")
 					(unit 1)
@@ -7425,7 +7425,7 @@
 			(uuid "f3795cf7-a5c3-4938-bb2f-3d8bd6337279")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J3")
 					(unit 1)
@@ -7513,7 +7513,7 @@
 			(uuid "8c42f58b-a323-40ab-858c-60a218160c56")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR09")
 					(unit 1)
@@ -7610,7 +7610,7 @@
 			(uuid "f6c974b0-9af4-4564-9db3-1a5caa0a220f")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR10")
 					(unit 1)
@@ -7894,7 +7894,7 @@
 			(uuid "be278d35-a2c8-448c-8a23-80d652ac71a0")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J4")
 					(unit 1)
@@ -7982,7 +7982,7 @@
 			(uuid "d8ab1464-60be-4dee-8266-bdb875af26f0")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR11")
 					(unit 1)
@@ -8079,7 +8079,7 @@
 			(uuid "6cf8df22-970a-45bb-acf4-e5d39adba685")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR12")
 					(unit 1)
@@ -8212,7 +8212,7 @@
 			(uuid "ad20d2d4-dc5f-4ab9-badc-1906a6236e20")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR13")
 					(unit 1)
@@ -8301,7 +8301,7 @@
 			(uuid "94a2e66d-146b-4284-a27e-e11778ff571d")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R2")
 					(unit 1)
@@ -8390,7 +8390,7 @@
 			(uuid "30ccb327-9755-4e6d-aef9-43b622672498")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "D3")
 					(unit 1)
@@ -8482,7 +8482,7 @@
 			(uuid "9a5db145-45d7-4906-97e1-c7a6147fee35")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "Q1")
 					(unit 1)
@@ -8569,7 +8569,7 @@
 			(uuid "bcc39b64-76ae-4ecf-ac19-6677fb6f04ea")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR14")
 					(unit 1)
@@ -8648,7 +8648,7 @@
 			(uuid "aa66c658-bfd0-4b51-a53b-80142408b244")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R3")
 					(unit 1)
@@ -8763,7 +8763,7 @@
 			(uuid "759fa46b-3bf7-4d63-8360-aeac736c7886")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "U2")
 					(unit 1)
@@ -8891,7 +8891,7 @@
 			(uuid "943bebcd-2516-4d08-ad09-c7161d2ef254")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR15")
 					(unit 1)
@@ -8976,7 +8976,7 @@
 			(uuid "4aa87f54-1515-4cd9-89f2-1de7cf399d8f")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "C1")
 					(unit 1)
@@ -9093,7 +9093,7 @@
 			(uuid "0b19f582-48ee-44f1-9c99-bd71027b32c8")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR16")
 					(unit 1)
@@ -9191,7 +9191,7 @@
 			(uuid "b50c8ae1-38c8-494a-b0d8-76094d414646")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J5")
 					(unit 1)
@@ -9288,7 +9288,7 @@
 			(uuid "01cff221-8117-4822-9622-e5854015cb52")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR17")
 					(unit 1)
@@ -9370,7 +9370,7 @@
 			(uuid "8c443712-60ca-44a4-87f5-837abd248663")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "SW5")
 					(unit 1)
@@ -9489,7 +9489,7 @@
 			(uuid "2ecc9650-544e-4284-9744-e2583845658c")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "D2")
 					(unit 1)
@@ -9592,7 +9592,7 @@
 			(uuid "6c2dee62-4207-4298-854c-63d885925e8b")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#FLG03")
 					(unit 1)
@@ -9692,7 +9692,7 @@
 			(uuid "633e8c30-2872-4f79-90bd-acb41a311754")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R4")
 					(unit 1)
@@ -9834,7 +9834,7 @@
 			(uuid "72236c83-3d7c-4f78-9e4e-de31b78bddfe")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R5")
 					(unit 1)
@@ -9923,7 +9923,7 @@
 			(uuid "a539eaab-73f1-4fef-bf1a-446b9fbc21a0")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "C2")
 					(unit 1)
@@ -10030,7 +10030,7 @@
 			(uuid "98c37766-a54a-4b40-802b-71bbbf9cf3d5")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR18")
 					(unit 1)
@@ -10171,7 +10171,7 @@
 			(uuid "e089d389-4ccb-488d-8ae5-9e49dd6cdd08")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J6")
 					(unit 1)
@@ -10259,7 +10259,7 @@
 			(uuid "9f44316b-57df-4236-93db-01cb15de069a")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR30")
 					(unit 1)
@@ -10356,7 +10356,7 @@
 			(uuid "0050445a-1577-4e88-ae3b-9e4e7212ceb9")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR31")
 					(unit 1)
@@ -10511,7 +10511,7 @@
 			(uuid "b08babf1-daaa-4f7f-a8e4-71b758521baa")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J7")
 					(unit 1)
@@ -10599,7 +10599,7 @@
 			(uuid "60802b89-1c29-48e9-9f5b-c2d3bc719227")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR40")
 					(unit 1)
@@ -10740,7 +10740,7 @@
 			(uuid "3bd49f45-2788-4182-8516-08d75f8d8af7")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "J8")
 					(unit 1)
@@ -10828,7 +10828,7 @@
 			(uuid "159000af-9707-480b-834f-dfa33387d7fd")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR41")
 					(unit 1)
@@ -10925,7 +10925,7 @@
 			(uuid "7ab99964-ded2-430e-b7ee-2cb4b6558378")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR42")
 					(unit 1)
@@ -11032,7 +11032,7 @@
 			)
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "H1")
 					(unit 1)
@@ -11105,7 +11105,7 @@
 			)
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "H2")
 					(unit 1)
@@ -11178,7 +11178,7 @@
 			)
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "H3")
 					(unit 1)
@@ -11251,7 +11251,7 @@
 			)
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "H4")
 					(unit 1)
@@ -11342,7 +11342,7 @@
 			(uuid "6f36ebfc-14e4-4bfd-9b8f-260acc6ef812")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R6")
 					(unit 1)
@@ -11442,7 +11442,7 @@
 			(uuid "21e2ee96-0791-46db-b3ee-809a2af00ca7")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R7")
 					(unit 1)
@@ -11542,7 +11542,7 @@
 			(uuid "742a23c7-51ad-41ef-ac4d-cb8838ebc1dc")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "R8")
 					(unit 1)
@@ -11660,7 +11660,7 @@
 			(uuid "7130e6cd-c2c4-4280-b205-628abe826748")
 		)
 		(instances
-			(project "cardputer-v0"
+			(project "curupira-diy"
 				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
 					(reference "#PWR50")
 					(unit 1)

@@ -488,7 +488,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "cardputer-v0.kicad_pro",
+    "filename": "curupira-diy.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -656,8 +656,8 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "cardputer-v0.kicad_sch",
-        "name": "cardputer-v0",
+        "filename": "curupira-diy.kicad_sch",
+        "name": "curupira-diy",
         "uuid": "ce8043db-ca9c-469c-a565-7619a05b7664"
       }
     ],
@@ -667,7 +667,7 @@
   "sheets": [
     [
       "ce8043db-ca9c-469c-a565-7619a05b7664",
-      "cardputer-v0"
+      "curupira-diy"
     ]
   ],
   "text_variables": {},

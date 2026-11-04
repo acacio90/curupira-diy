@@ -1,7 +1,7 @@
-# CURUPIRA (ex-Cardputer DIY) — guia da placa ESP32-S3
+# CURUPIRA DIY — guia da placa ESP32-S3
 
 Objetivo da v0: aprender o fluxo completo do KiCad (esquemático → PCB → Gerber → JLCPCB)
-com uma placa simples, que já é o "esqueleto" do cardputer:
+com uma placa simples, que já é o "esqueleto" do CURUPIRA:
 
 - ESP32-S3-DevKitC-1 **N16R8** encaixado em barras de pinos fêmea (nada de soldar o chip)
 - Conector para módulo de tela **ST7789** (8 pinos)
@@ -66,9 +66,9 @@ Alimentação: tudo em **3V3** (pino 3V3 do DevKit). Não use 5V nos módulos de
 
 ## Passo 1 — criar o projeto
 
-1. *File → New Project* → salve **nesta pasta** (`~/Documentos/KiCad/cardputer-diy`),
-   nome `cardputer-v0`.
-2. Vão aparecer `cardputer-v0.kicad_sch` (esquemático) e `cardputer-v0.kicad_pcb` (placa).
+1. *File → New Project* → salve **nesta pasta** (a raiz do repositório `curupira`),
+   nome `curupira-diy`.
+2. Vão aparecer `curupira-diy.kicad_sch` (esquemático) e `curupira-diy.kicad_pcb` (placa).
 
 ## Passo 2 — esquemático (Schematic Editor)
 

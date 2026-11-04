@@ -46,7 +46,7 @@ Para atualizar depois de mexer na placa ou no esquemático: `./renders/gerar.sh`
 ## Estrutura
 
 ```
-cardputer-v0.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
+curupira-diy.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
 GUIA.md                 → mapa de pinos (GPIO ↔ cada conector)
 production/             → Gerbers (JLCPCB), BOM, renders 3D
 renders/                → renders atuais da placa e do esquemático (gerar.sh recria tudo)

@@ -6,8 +6,8 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJ="$(dirname "$DIR")"
-PCB="$PROJ/cardputer-v0.kicad_pcb"
-SCH="$PROJ/cardputer-v0.kicad_sch"
+PCB="$PROJ/curupira-diy.kicad_pcb"
+SCH="$PROJ/curupira-diy.kicad_sch"
 cd "$DIR"
 
 render() { # nome, args...
