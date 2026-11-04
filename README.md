@@ -1,3 +1,4 @@
+
  <div align="center">
   <img src="arte/curupira_rosto_cor.png" alt="CURUPIRA" width="180">
 

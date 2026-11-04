@@ -66,7 +66,7 @@ Alimentação: tudo em **3V3** (pino 3V3 do DevKit). Não use 5V nos módulos de
 
 ## Passo 1 — criar o projeto
 
-1. *File → New Project* → salve **nesta pasta** (a raiz do repositório `curupira`),
+1. *File → New Project* → salve **nesta pasta** (a raiz do repositório `curupira-diy`),
    nome `curupira-diy`.
 2. Vão aparecer `curupira-diy.kicad_sch` (esquemático) e `curupira-diy.kicad_pcb` (placa).
 
