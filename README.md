@@ -55,7 +55,9 @@ curupira-diy.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
 GUIA.md                 → mapa de pinos (GPIO ↔ cada conector)
 production/             → Gerbers (JLCPCB), BOM, renders 3D
 renders/                → renders atuais da placa e do esquemático (gerar.sh recria tudo)
-3d/                     → modelo 3D (STEP) do ESP32-S3-DevKitC-1 usado no U1
+3d/                     → modelos 3D de todos os módulos e peças (ver 3d/LEIA-ME.md)
+lib/                    → biblioteca local da Espressif (símbolo + footprint do DevKit)
+docs/pinagem.html       → diagrama interativo da pinagem do ESP32 (abrir no navegador)
 arte/                   → logo CURUPIRA: rosto colorido (README), rosto e corpo em P&B (serigrafia), versões transparentes
 production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 ```

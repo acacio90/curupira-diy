@@ -1,9 +1,14 @@
 # === KiCad: arquivos locais / gerados ===
-*.kicad_prl            # preferências locais do projeto (por usuário)
-~*.lck                 # locks de editor aberto
-_autosave-*            # autosave do KiCad
-*-backups/             # pasta de backups automáticos do KiCad
-fp-info-cache          # cache de footprints
+# preferências locais do projeto (por usuário)
+*.kicad_prl
+# locks de editor aberto
+~*.lck
+*.lck
+# autosave e backups automáticos
+_autosave-*
+*-backups/
+# cache de footprints
+fp-info-cache
 *.bak
 *~
 
@@ -16,6 +21,3 @@ fp-info-cache          # cache de footprints
 # === Sistema ===
 .DS_Store
 Thumbs.db
-
-# lock files (reforço)
-*.lck

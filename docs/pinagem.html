@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pinagem do CURUPIRA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout: folha de referência — cabeçalho curto, placa desenhada no centro com os pinos rotulados dos dois lados, legenda clicável e tabela completa abaixo. */
+:root {
+  --bg: #eef2ee;
+  --surface: #ffffff;
+  --fg: #16201a;
+  --muted: #56645b;
+  --line: #d3dbd5;
+  --accent: #1f5c3f;
+  --focus: #2f6fd6;
+  --mask: #1d4a34;
+  --mask-edge: #143726;
+  --pad: #d6ad45;
+  --silk: #e8efe9;
+  --pill-text: #ffffff;
+  --strap: #f2b01e;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* cores por função (iguais nos dois temas: o texto da etiqueta é sempre branco) */
+  --c-energia: #d64545;
+  --c-gnd: #3d4650;
+  --c-spi: #2f6fd6;
+  --c-tela: #0a8ea4;
+  --c-rf: #7a4fd8;
+  --c-sd: #1c8f61;
+  --c-i2c: #b97f0c;
+  --c-botoes: #dd5f16;
+  --c-gps: #c93a83;
+  --c-ir: #8a5a2b;
+  --c-apoio: #5c7a17;
+  --c-livre: #6f7d74;
+  --c-reservado: #8a9199;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101612; --surface: #18211b; --fg: #e4ebe6; --muted: #9aab9f; --line: #2b372f;
+    --accent: #7fc8a0; --focus: #7aa7ff; --mask: #1f5038; --mask-edge: #0c2418; --silk: #e8efe9;
+    --c-livre: #8d9a91; --c-reservado: #6c737b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101612; --surface: #18211b; --fg: #e4ebe6; --muted: #9aab9f; --line: #2b372f;
+  --accent: #7fc8a0; --focus: #7aa7ff; --mask: #1f5038; --mask-edge: #0c2418; --silk: #e8efe9;
+  --c-livre: #8d9a91; --c-reservado: #6c737b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1060px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5vw, 44px); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 66ch; }
+
+.stats { display: flex; flex-wrap: wrap; gap: 10px 22px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.stats b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: start; }
+@media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 10px; overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.pin { cursor: pointer; }
+.pin:focus { outline: none; }
+.pin:focus-visible .func, .pin.sel .func { stroke: var(--fg); stroke-width: 2.5; }
+.pin.dim { opacity: .18; }
+.pin text { pointer-events: none; }
+.t-func { font-family: var(--font-body); font-weight: 600; font-size: 12.5px; fill: var(--pill-text); }
+.t-func.dark { fill: var(--fg); }
+.t-gpio { font-family: var(--font-mono); font-weight: 600; font-size: 12px; fill: var(--fg); }
+.t-num { font-family: var(--font-mono); font-size: 10px; fill: var(--silk); opacity: .75; }
+.t-silk { font-family: var(--font-mono); font-size: 11px; fill: var(--silk); }
+.t-silk-big { font-family: var(--font-display); font-weight: 700; font-size: 17px; fill: var(--silk); letter-spacing: .02em; }
+.t-edge { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); }
+
+aside { display: flex; flex-direction: column; gap: 18px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.panel h2 { font-family: var(--font-display); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; margin: 0; color: var(--muted); }
+.detail-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.detail-title .gp { font-family: var(--font-mono); font-weight: 600; font-size: 20px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #fff; border-radius: 999px; padding: 2px 10px; }
+.chip.outline { background: transparent !important; color: var(--fg); border: 1.5px dashed var(--c-livre); }
+.chip.hatch { color: #fff; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 4px, transparent 4px 8px); }
+dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; font-size: 14px; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+.strap-note { font-size: 13px; background: color-mix(in srgb, var(--strap) 18%, transparent); border-left: 3px solid var(--strap); padding: 8px 10px; border-radius: 4px; }
+
+.legend { display: flex; flex-direction: column; gap: 6px; }
+.legend button {
+  all: unset; box-sizing: border-box; display: grid; grid-template-columns: 14px minmax(0,1fr) auto; align-items: center; gap: 10px;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.legend button:hover { background: color-mix(in srgb, var(--fg) 6%, transparent); }
+.legend button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.legend button[aria-pressed="true"] { background: color-mix(in srgb, var(--fg) 10%, transparent); font-weight: 600; }
+.legend .sw { width: 14px; height: 14px; border-radius: 4px; }
+.legend .sw.outline { border: 2px dashed var(--c-livre); background: transparent !important; }
+.legend .sw.hatch { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.35) 0 3px, transparent 3px 6px); }
+.legend .n { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend-foot { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); padding: 2px 8px; }
+.sbadge { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--strap); font: 600 10px var(--font-mono); color: var(--fg); }
+.clear { align-self: flex-start; font: 500 13px var(--font-body); color: var(--accent); background: none; border: 0; padding: 2px 8px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.clear:focus-visible { outline: 2px solid var(--focus); }
+
+section h2 { font-family: var(--font-display); font-size: 22px; margin: 0 0 10px; }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 680px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
+td.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: color-mix(in srgb, var(--fg) 4%, transparent); }
+tbody tr.sel { background: color-mix(in srgb, var(--focus) 12%, transparent); }
+tbody tr.dim { display: none; }
+td .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 8px; vertical-align: 1px; }
+.notes { color: var(--muted); font-size: 13px; max-width: 80ch; margin: 0; }
+@media (prefers-reduced-motion: no-preference) { .pin { transition: opacity .15s; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">ESP32-S3-DevKitC-1 N16R8 · vista de cima · antena em cima, USB embaixo</div>
+    <h1>Pinagem do CURUPIRA</h1>
+    <p class="lede">O que cada pino do DevKit faz na placa: a cor diz a função, o ícone <span class="sbadge" aria-hidden="true">S</span> marca pino de <em>strapping</em> (influencia o boot). Clique numa cor da legenda para ver só aquele grupo, ou num pino para ver os detalhes.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="main">
+    <div class="diagram" role="group" aria-label="Diagrama de pinos do DevKit">
+      <svg id="svg" viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <aside>
+      <div class="panel" id="detail" aria-live="polite"></div>
+      <div class="panel">
+        <h2>Legenda</h2>
+        <div class="legend" id="legend"></div>
+        <div class="legend-foot"><span class="sbadge">S</span> pino de strapping (lido no boot)</div>
+        <button class="clear" id="clear" type="button" hidden>Mostrar todos os pinos</button>
+      </div>
+    </aside>
+  </div>
+
+  <section>
+    <h2>Todos os pinos</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Lado · pino</th><th>GPIO</th><th>Função no CURUPIRA</th><th>Liga em</th><th>Observação</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="notes" style="margin-top:12px">Fonte: esquemático <code>curupira-diy.kicad_sch</code> (netlist). Conectores: J1 tela · J2 PN532 · J3 CC1101 · J4 microSD · J5 bateria · J6 GPS · J8 CardKB · J9 NRF24. “Livre*” = sem uso no projeto, mas com uma ressalva antes de usar.</p>
+  </section>
+</div>
+
+<script>
+const CATS = {
+  energia:   { nome: "Alimentação (3V3 / 5V)", cor: "--c-energia" },
+  gnd:       { nome: "GND (terra)", cor: "--c-gnd" },
+  spi:       { nome: "Barramento SPI (compartilhado)", cor: "--c-spi" },
+  tela:      { nome: "Tela ST7789", cor: "--c-tela" },
+  rf:        { nome: "Rádios: CC1101 e NRF24", cor: "--c-rf" },
+  sd:        { nome: "microSD", cor: "--c-sd" },
+  i2c:       { nome: "I2C: PN532 e CardKB", cor: "--c-i2c" },
+  botoes:    { nome: "Botões", cor: "--c-botoes" },
+  gps:       { nome: "GPS (UART)", cor: "--c-gps" },
+  ir:        { nome: "Infravermelho", cor: "--c-ir" },
+  apoio:     { nome: "LED, buzzer e bateria", cor: "--c-apoio" },
+  livre:     { nome: "Livre* (com ressalva)", cor: "--c-livre", outline: true },
+  reservado: { nome: "Reservado: não usar", cor: "--c-reservado", hatch: true },
+};
+
+// lado esquerdo = barra J1 do DevKit (pino 1 em cima), lado direito = barra J3
+const L = [
+  ["3V3", null, "energia", "3V3", "Todos os módulos (VCC), buzzer", "Saída do regulador de 3,3 V do DevKit."],
+  ["3V3", null, "energia", "3V3", "Todos os módulos (VCC), buzzer", "Mesma rede do pino acima."],
+  ["EN", null, "reservado", "Reset (EN)", "Botão RST do DevKit", "Reinicia o ESP32 quando vai a nível baixo. Não usar."],
+  ["4", 4, "botoes", "Botão CIMA", "SW1", "Botão ligado ao GND: usar pull-up interno."],
+  ["5", 5, "botoes", "Botão BAIXO", "SW2", "Botão ligado ao GND: usar pull-up interno."],
+  ["6", 6, "botoes", "Botão OK", "SW3", "Botão ligado ao GND: usar pull-up interno."],
+  ["7", 7, "botoes", "Botão VOLTAR", "SW4", "Botão ligado ao GND: usar pull-up interno."],
+  ["15", 15, "rf", "CC1101 · CS", "J3 pino 6 (CSN)", "Pull-up de 10k (R7) mantém o módulo desligado até o firmware iniciar."],
+  ["16", 16, "rf", "NRF24 · CS", "J9 pino 4 (CSN)", "Pull-up de 10k (R8)."],
+  ["17", 17, "rf", "CC1101 · GDO0", "J3 pino 5", "Interrupção do CC1101 (rede IRQ)."],
+  ["18", 18, "i2c", "SCL", "J2 pino 1 (PN532), J8 pino 4 (CardKB)", "Barramento I2C compartilhado."],
+  ["8", 8, "i2c", "SDA", "J2 pino 2 (PN532), J8 pino 3 (CardKB)", "Barramento I2C compartilhado."],
+  ["3", 3, "apoio", "Buzzer", "R9 1k → base do Q2 (BC337) → BZ1", "Tocar com PWM / tone(). Strapping de JTAG: só pesa com eFuse gravado.", true],
+  ["46", 46, "livre", "Livre*", "—", "Strapping: deve ficar em nível baixo no boot. Usável como saída depois do boot, sem pull-up externo.", true],
+  ["9", 9, "tela", "Tela · DC", "J1 pino 6", "Dado/comando da tela."],
+  ["10", 10, "tela", "Tela · CS", "J1 pino 7", "Seleção da tela no SPI."],
+  ["11", 11, "spi", "MOSI", "Tela J1-4, CC1101 J3-4, NRF24 J9-6, microSD J4-3", "Dados do ESP32 para os módulos."],
+  ["12", 12, "spi", "SCK", "Tela J1-3, CC1101 J3-3, NRF24 J9-5, microSD J4-4", "Relógio do SPI."],
+  ["13", 13, "spi", "MISO", "CC1101 J3-1, NRF24 J9-7, microSD J4-5", "Dados dos módulos para o ESP32 (a tela não usa)."],
+  ["14", 14, "tela", "Tela · RESET", "J1 pino 5", ""],
+  ["5V", null, "energia", "5V / VIN", "TP4056 → chave LIGA → 1N5817 (D2)", "Entrada da bateria. Também recebe 5 V quando o USB está ligado."],
+  ["GND", null, "gnd", "GND", "Planos de GND da placa", ""],
+];
+const R = [
+  ["GND", null, "gnd", "GND", "Planos de GND da placa", ""],
+  ["43", 43, "livre", "Livre* (TX0)", "—", "UART0 TX, ligado ao conversor USB da porta “UART” do DevKit. Livre se você gravar e usar só a porta USB nativa."],
+  ["44", 44, "livre", "Livre* (RX0)", "—", "UART0 RX. Mesma ressalva do 43."],
+  ["1", 1, "apoio", "Bateria (ADC)", "Divisor R4/R5 100k/100k + C2", "Lê metade da tensão da bateria."],
+  ["2", 2, "apoio", "LED de status", "R1 330 Ω → D1", ""],
+  ["42", 42, "ir", "IR · receptor", "U2 (TSOP38238)", "Saída do receptor de 38 kHz."],
+  ["41", 41, "sd", "microSD · CS", "J4 pino 2", "Pull-up de 10k (R6)."],
+  ["40", 40, "rf", "NRF24 · CE", "J9 pino 3", "Habilita o rádio do NRF24."],
+  ["39", 39, "gps", "GPS · RX do ESP", "J6 pino 3 ← TX do GPS", "No Bruce: GPS → Config → GPS Pins, RX = 39."],
+  ["38", 38, "livre", "Livre*", "—", "Liga o LED RGB do DevKit v1.1: usável, mas o LED pisca junto."],
+  ["37", 37, "reservado", "PSRAM", "—", "Usado pela PSRAM octal do N16R8. Não usar."],
+  ["36", 36, "reservado", "PSRAM", "—", "Usado pela PSRAM octal do N16R8. Não usar."],
+  ["35", 35, "reservado", "PSRAM", "—", "Usado pela PSRAM octal do N16R8. Não usar."],
+  ["0", 0, "reservado", "Botão BOOT", "Botão BOOT do DevKit", "Strapping: em nível baixo no boot entra em modo de gravação.", true],
+  ["45", 45, "livre", "Livre*", "—", "Strapping: nível alto no boot muda a tensão da flash e o ESP32 pode não iniciar. Evite pull-up.", true],
+  ["48", 48, "gps", "GPS · TX do ESP", "J6 pino 2 → RX do GPS", "No DevKit v1.0 também liga o LED RGB (inofensivo). No Bruce: TX = 48."],
+  ["47", 47, "ir", "IR · emissor", "R3 1k → Q1 (BC337) → LED IR D3", "Modulação de 38 kHz pelo firmware."],
+  ["21", 21, "tela", "Tela · luz de fundo", "J1 pino 8 (BLK)", "Aceita PWM para ajustar o brilho."],
+  ["20", 20, "reservado", "USB D+", "Porta USB nativa", "Usado pela porta USB nativa (gravação e Bad USB). Não usar."],
+  ["19", 19, "reservado", "USB D−", "Porta USB nativa", "Usado pela porta USB nativa. Não usar."],
+  ["GND", null, "gnd", "GND", "Planos de GND da placa", ""],
+  ["GND", null, "gnd", "GND", "Planos de GND da placa", ""],
+];
+const PINS = [
+  ...L.map((p, i) => ({ side: "L", n: i + 1, label: p[0], gpio: p[1], cat: p[2], func: p[3], liga: p[4], obs: p[5], strap: !!p[6] })),
+  ...R.map((p, i) => ({ side: "R", n: i + 1, label: p[0], gpio: p[1], cat: p[2], func: p[3], liga: p[4], obs: p[5], strap: !!p[6] })),
+];
+PINS.forEach((p, i) => p.id = i);
+
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const gpioName = p => p.gpio === null ? p.label : "GPIO" + p.gpio;
+const sideName = p => (p.side === "L" ? "lado esquerdo (barra J1)" : "lado direito (barra J3)") + ", pino " + p.n;
+
+let filtro = null, sel = PINS.find(p => p.gpio === 12).id;
+
+function draw() {
+  const svg = document.getElementById("svg");
+  svg.innerHTML = "";
+  const top = 92, pitch = 26, H = top + 22 * pitch + 70;
+  svg.setAttribute("viewBox", `0 0 800 ${H}`);
+  const defs = el("defs", {}, svg);
+  const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+  el("rect", { width: 6, height: 6, fill: css("--c-reservado") }, pat);
+  el("rect", { width: 3, height: 6, fill: "rgba(255,255,255,0.22)" }, pat);
+
+  // placa
+  const bx = 300, bw = 200, by = 18, bh = H - 36;
+  el("rect", { x: bx, y: by, width: bw, height: bh, rx: 8, fill: css("--mask"), stroke: css("--mask-edge"), "stroke-width": 2 }, svg);
+  // módulo WROOM + antena
+  el("rect", { x: bx + 34, y: by - 6, width: bw - 68, height: 30, rx: 2, fill: "#2a2f2c" }, svg);
+  const ant = el("path", { d: `M${bx + 50} ${by + 2} h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h14`, fill: "none", stroke: css("--pad"), "stroke-width": 2 }, svg);
+  el("rect", { x: bx + 34, y: by + 24, width: bw - 68, height: 150, rx: 3, fill: "#c9ced0" }, svg);
+  el("text", { x: bx + bw / 2, y: by + 92, "text-anchor": "middle", class: "t-silk-big", fill: "#2b3530", style: "fill:#2b3530" }, svg).textContent = "ESP32-S3";
+  el("text", { x: bx + bw / 2, y: by + 112, "text-anchor": "middle", class: "t-silk", style: "fill:#2b3530" }, svg).textContent = "WROOM-1 N16R8";
+  el("text", { x: bx + bw / 2, y: by + 136, "text-anchor": "middle", class: "t-silk", style: "fill:#2b3530;font-size:10px" }, svg).textContent = "16 MB flash · 8 MB PSRAM";
+  el("text", { x: bx + bw / 2, y: by + 270, "text-anchor": "middle", class: "t-silk-big" }, svg).textContent = "DevKitC-1";
+  el("text", { x: bx + bw / 2, y: by + 290, "text-anchor": "middle", class: "t-silk" }, svg).textContent = "no verso da placa";
+  el("text", { x: bx + 60, y: by + 360, "text-anchor": "middle", class: "t-silk" }, svg).textContent = "J1";
+  el("text", { x: bx + bw - 60, y: by + 360, "text-anchor": "middle", class: "t-silk" }, svg).textContent = "J3";
+  // portas USB
+  const uy = by + bh - 26;
+  [[bx + 40, "USB nativa"], [bx + bw - 90, "UART"]].forEach(([x, t]) => {
+    el("rect", { x, y: uy, width: 50, height: 30, rx: 4, fill: "#b9c0c4", stroke: "#8b9397" }, svg);
+    el("text", { x: x + 25, y: uy - 6, "text-anchor": "middle", class: "t-silk", style: "font-size:10px" }, svg).textContent = t;
+  });
+  el("text", { x: bx + bw / 2, y: by - 2, "text-anchor": "middle", class: "t-edge" }, svg).textContent = "";
+
+  PINS.forEach(p => {
+    const y = top + (p.n - 1) * pitch;
+    const left = p.side === "L";
+    const padX = left ? bx + 16 : bx + bw - 16;
+    const c = CATS[p.cat];
+    const g = el("g", { class: "pin" + (filtro && filtro !== p.cat ? " dim" : "") + (sel === p.id ? " sel" : ""), tabindex: 0, role: "button",
+      "aria-label": `${gpioName(p)}: ${p.func}`, "data-id": p.id }, svg);
+    el("title", {}, g).textContent = `${gpioName(p)} — ${p.func}`;
+    // ilha
+    el("circle", { cx: padX, cy: y, r: 7, fill: css("--pad") }, g);
+    el("circle", { cx: padX, cy: y, r: 3, fill: css("--mask-edge") }, g);
+    el("text", { x: left ? padX + 13 : padX - 13, y: y + 3.5, "text-anchor": left ? "start" : "end", class: "t-num" }, g).textContent = p.n;
+    // etiqueta GPIO
+    const gx = left ? 226 : 514;
+    el("rect", { x: gx, y: y - 10, width: 60, height: 20, rx: 4, fill: css("--surface"), stroke: css("--line") }, g);
+    el("text", { x: gx + 30, y: y + 4, "text-anchor": "middle", class: "t-gpio" }, g).textContent = p.gpio === null ? p.label : "GPIO" + p.gpio;
+    // linha até a ilha
+    el("line", { x1: left ? 286 : padX + 8, y1: y, x2: left ? padX - 8 : 514, y2: y, stroke: css("--line"), "stroke-width": 1.5 }, g);
+    // etiqueta de função
+    const fx = left ? 18 : 582, fw = 202;
+    const fill = c.hatch ? "url(#hatch)" : c.outline ? css("--surface") : css(c.cor);
+    el("rect", { x: fx, y: y - 10, width: fw, height: 20, rx: 10, fill, class: "func",
+      stroke: c.outline ? css(c.cor) : "none", "stroke-dasharray": c.outline ? "4 3" : "none", "stroke-width": c.outline ? 1.5 : 0 }, g);
+    el("text", { x: left ? fx + fw - 12 : fx + 12, y: y + 4.3, "text-anchor": left ? "end" : "start", class: "t-func" + (c.outline ? " dark" : "") }, g).textContent = p.func;
+    // strapping
+    if (p.strap) {
+      const sx = left ? gx - 3 : gx + 63;
+      el("circle", { cx: sx, cy: y - 9, r: 7, fill: css("--surface"), stroke: css("--strap"), "stroke-width": 2 }, g);
+      el("text", { x: sx, y: y - 5.6, "text-anchor": "middle", class: "t-gpio", style: "font-size:9px" }, g).textContent = "S";
+    }
+    g.addEventListener("click", () => select(p.id));
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p.id); } });
+  });
+}
+
+function chipHTML(cat) {
+  const c = CATS[cat];
+  const cls = c.outline ? "chip outline" : c.hatch ? "chip hatch" : "chip";
+  return `<span class="${cls}" style="background-color: var(${c.cor})">${c.nome}</span>`;
+}
+
+function detail() {
+  const p = PINS[sel];
+  const box = document.getElementById("detail");
+  box.innerHTML = `
+    <h2>Pino selecionado</h2>
+    <div class="detail-title"><span class="gp">${gpioName(p)}</span>${p.strap ? '<span class="sbadge" title="strapping">S</span>' : ""}</div>
+    <div>${chipHTML(p.cat)}</div>
+    <dl>
+      <dt>Função</dt><dd>${p.func}</dd>
+      <dt>Liga em</dt><dd>${p.liga || "—"}</dd>
+      <dt>Posição</dt><dd>${sideName(p)}</dd>
+    </dl>
+    ${p.obs ? `<div class="${p.strap ? "strap-note" : ""}" style="font-size:14px">${p.obs}</div>` : ""}`;
+}
+
+function legend() {
+  const box = document.getElementById("legend");
+  box.innerHTML = "";
+  Object.entries(CATS).forEach(([k, c]) => {
+    const n = PINS.filter(p => p.cat === k).length;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed", filtro === k ? "true" : "false");
+    b.innerHTML = `<span class="sw${c.outline ? " outline" : c.hatch ? " hatch" : ""}" style="background-color: var(${c.cor})"></span><span>${c.nome}</span><span class="n">${n}</span>`;
+    b.addEventListener("click", () => { filtro = filtro === k ? null : k; render(); });
+    box.appendChild(b);
+  });
+  document.getElementById("clear").hidden = !filtro;
+}
+
+function table() {
+  const tb = document.getElementById("tbody");
+  tb.innerHTML = "";
+  PINS.forEach(p => {
+    const tr = document.createElement("tr");
+    if (filtro && filtro !== p.cat) tr.className = "dim";
+    if (sel === p.id) tr.classList.add("sel");
+    const c = CATS[p.cat];
+    tr.innerHTML = `<td class="mono">${p.side === "L" ? "J1" : "J3"} · ${p.n}</td>
+      <td class="mono">${gpioName(p)}${p.strap ? ' <span class="sbadge" title="strapping">S</span>' : ""}</td>
+      <td><span class="dot" style="background:var(${c.cor});${c.outline ? "outline:1.5px dashed var(--c-livre);background:transparent" : ""}"></span>${p.func}</td>
+      <td>${p.liga || "—"}</td><td>${p.obs || ""}</td>`;
+    tr.addEventListener("click", () => select(p.id));
+    tb.appendChild(tr);
+  });
+}
+
+function stats() {
+  const used = PINS.filter(p => !["energia", "gnd", "livre", "reservado"].includes(p.cat)).length;
+  const livres = PINS.filter(p => p.cat === "livre").length;
+  const res = PINS.filter(p => p.cat === "reservado").length;
+  const pw = PINS.filter(p => ["energia", "gnd"].includes(p.cat)).length;
+  document.getElementById("stats").innerHTML =
+    `<span><b>${used}</b> pinos em uso</span><span><b>${livres}</b> livres com ressalva</span><span><b>${res}</b> reservados</span><span><b>${pw}</b> de alimentação</span>`;
+}
+
+function select(id) { sel = id; render(); }
+function render() { draw(); detail(); legend(); table(); }
+document.getElementById("clear").addEventListener("click", () => { filtro = null; render(); });
+stats(); render();
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render); } catch (e) {}
+new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+</body>
+</html>

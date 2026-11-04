@@ -392,7 +392,7 @@
 			(uuid "8786bc3c-e2ef-4580-9db5-fcce718350eb")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -653,7 +653,7 @@
 			(uuid "97515bb6-b889-4e94-aa09-27ff9da53e07")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/OptoDevice.3dshapes/Vishay_MINICAST-3Pin.step"
+		(model "${KIPRJMOD}/3d/kicad/Vishay_MINICAST-3Pin.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1047,7 +1047,7 @@
 			(uuid "bdd34255-42a8-4434-b6ed-7a283e51bd74")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_Slide_SPDT_Straight_CK_OS102011MS2Q.step"
+		(model "${KIPRJMOD}/3d/kicad/SW_Slide_SPDT_Straight_CK_OS102011MS2Q.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1275,7 +1275,7 @@
 			(uuid "07b110f0-8018-48d2-a9eb-6746b59b2ff1")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinHeader_1x02_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1732,7 +1732,7 @@
 			(uuid "3460bcfe-bdd1-4b53-b7cd-a7f6d5c8a8be")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm.step"
+		(model "${KIPRJMOD}/3d/kicad/SW_PUSH_6mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1941,7 +1941,7 @@
 			(uuid "6dca903b-688d-4a0e-9076-03b2e9db3451")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2150,7 +2150,7 @@
 			(uuid "ce8b6799-8d6a-4a60-931d-6e8091e58005")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2359,7 +2359,7 @@
 			(uuid "83140f7a-dcec-4f57-b544-3e6179fb808e")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2622,7 +2622,7 @@
 			(uuid "e6512b8a-c207-4fbd-85ff-048873327b95")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-41_SOD81_P10.16mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/D_DO-41_SOD81_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2960,7 +2960,7 @@
 			(uuid "05bb5f77-e388-43a6-89db-3b8afe936c28")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm.step"
+		(model "${KIPRJMOD}/3d/kicad/SW_PUSH_6mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3169,7 +3169,7 @@
 			(uuid "9c89a14e-014f-4ca1-b549-959ffbcffae3")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3444,7 +3444,7 @@
 			(uuid "505c15bf-7f90-4be3-b77d-ed8ee00fdff4")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x04_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3654,7 +3654,7 @@
 			(uuid "5f98e3f8-bece-4a0d-aecd-2e7c2946bb89")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_THT.3dshapes/LED_D5.0mm.step"
+		(model "${KIPRJMOD}/3d/kicad/LED_D5.0mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3917,7 +3917,7 @@
 			(uuid "6a98d020-9808-4485-93ce-646ff36afccb")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/D_DO-35_SOD27_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4255,7 +4255,7 @@
 			(uuid "954c669c-16f6-408f-8efa-63aa2a1e1989")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm.step"
+		(model "${KIPRJMOD}/3d/kicad/SW_PUSH_6mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4464,7 +4464,7 @@
 			(uuid "8eaa4cf5-d23f-45e6-a95b-dc4e1d7018f7")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4613,7 +4613,7 @@
 			(uuid "9676aad0-e7f6-44ec-9659-9b00e9978f57")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
+		(model "${KIPRJMOD}/3d/kicad/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4869,7 +4869,7 @@
 			(uuid "8382683c-fdbb-4f32-997e-7e7c9bd4344d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
+		(model "${KIPRJMOD}/3d/kicad/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5034,7 +5034,7 @@
 			(uuid "9871bfc0-a404-441c-886c-efe1226880e6")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Buzzer_Beeper.3dshapes/Buzzer_12x9.5RM7.6.step"
+		(model "${KIPRJMOD}/3d/kicad/Buzzer_12x9.5RM7.6.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5254,7 +5254,7 @@
 			(uuid "44d360bb-82c9-40a3-9379-b237abab7b24")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.step"
+		(model "${KIPRJMOD}/3d/kicad/LED_D3.0mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5463,7 +5463,7 @@
 			(uuid "1229671f-68b6-4661-a732-9e14e5109db2")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5672,7 +5672,7 @@
 			(uuid "048893d0-1ed3-41c4-be9d-c9e63ae1c2da")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5884,7 +5884,7 @@
 			(uuid "ce85b084-bf98-4990-a30a-0eb518db57f5")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-92_Inline.step"
+		(model "${KIPRJMOD}/3d/kicad/TO-92_Inline.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6093,7 +6093,7 @@
 			(uuid "80d15bc5-754c-471a-b4ac-eea7364d3c9c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
+		(model "${KIPRJMOD}/3d/kicad/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6404,7 +6404,7 @@
 			(uuid "a2bc89ea-cf8f-4e0a-af29-b18397a557b2")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x08_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x08_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6627,7 +6627,7 @@
 			(uuid "2d4f890a-9d62-4b70-8f18-09503b3a1c69")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-92_Inline.step"
+		(model "${KIPRJMOD}/3d/kicad/TO-92_Inline.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7072,7 +7072,7 @@
 			(uuid "6bc62352-ad7f-4af3-8a9d-30d2a5c0a4df")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_PUSH_6mm.step"
+		(model "${KIPRJMOD}/3d/kicad/SW_PUSH_6mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7354,7 +7354,7 @@
 			(uuid "0158b975-c5bf-4413-9832-4a30d1698401")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x04_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7653,7 +7653,7 @@
 			(uuid "ff07fcab-be6d-4ee0-8229-1a3a8ae0ebe8")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x06_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x06_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -8836,7 +8836,7 @@
 				(xyz -90 0 0)
 			)
 		)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x22_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x22_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -8847,7 +8847,7 @@
 				(xyz 0 0 0)
 			)
 		)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x22_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x22_P2.54mm_Vertical.step"
 			(offset
 				(xyz 22.86 0 0)
 			)
@@ -9128,7 +9128,7 @@
 			(uuid "82e8cee5-45d3-4fdd-910d-270822e1643e")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_1x04_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -9476,7 +9476,7 @@
 			(uuid "215eac23-b450-404c-9e6f-3f293fc3ca5c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x04_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_2x04_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -9824,7 +9824,7 @@
 			(uuid "069072fa-1199-4f98-a71e-bcd05ac0e597")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x04_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/3d/kicad/PinSocket_2x04_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
