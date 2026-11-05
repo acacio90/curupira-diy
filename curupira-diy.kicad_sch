@@ -10723,29 +10723,6 @@
 		)
 		(uuid "796c706a-ce8e-40d7-ab5b-185bf4c5fe8a")
 	)
-	(label "BUZZER"
-		(at 93.98 57.15 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7b065675-1bab-4608-85bb-04ed8b18450b")
-	)
-	(text "Buzzer passivo (GPIO3)"
-		(exclude_from_sim no)
-		(at 233.68 22.86 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-		(uuid "0a6b322c-1066-4d01-a072-d8d20f3cbf0a")
-	)
 	(text "I2C extra (medidor de bateria etc.)"
 		(exclude_from_sim no)
 		(at 233.68 53.34 0)
@@ -11775,519 +11752,6 @@
 		(color 0 0 0 0)
 		(uuid "357642e9-58d1-4af6-b79b-6e8c88ec5f38")
 	)
-	(symbol
-		(lib_id "Device:R")
-		(at 241.3 43.18 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "f47e17cd-e45e-4517-92b4-517d330bae18")
-		(property "Reference" "R9"
-			(at 241.3 40.64 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "1k"
-			(at 241.3 45.72 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 241.3 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 241.3 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 241.3 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "94b3e614-6195-4772-a350-b8cbc40eafd1")
-		)
-		(pin "2"
-			(uuid "b4b8b972-762c-4f35-9b3a-17572a7618b3")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "R9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 250.19 43.18 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "22387af9-dc98-444a-9c1b-609fbbf3dd15")
-		(property "Reference" "Q2"
-			(at 256.54 41.91 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "BC337"
-			(at 256.54 44.45 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
-			(at 250.19 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 250.19 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 250.19 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "649505a8-70e8-45d0-b338-8995539b2893")
-		)
-		(pin "2"
-			(uuid "cabe227e-4018-4846-8d44-2fac744026e8")
-		)
-		(pin "3"
-			(uuid "7816ac6b-3df1-4f6c-b43f-24358ba4582b")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "Q2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:Buzzer")
-		(at 264.16 33.02 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "05d4be6c-318a-4205-8b55-54aa71fb3953")
-		(property "Reference" "BZ1"
-			(at 269.24 31.75 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "Buzzer passivo"
-			(at 275.59 34.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" "Buzzer_Beeper:Buzzer_12x9.5RM7.6"
-			(at 264.16 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 264.16 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 264.16 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "c173a343-2bad-4ac2-a6ac-0e5d376e31eb")
-		)
-		(pin "2"
-			(uuid "cad7e5a1-dd77-45a8-8c90-62c557c993f1")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "BZ1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D")
-		(at 257.81 33.02 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "80355503-bedd-4570-bacf-7f59146f7cda")
-		(property "Reference" "D4"
-			(at 248.92 30.48 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "1N4148"
-			(at 248.92 33.02 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 257.81 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 257.81 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 257.81 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "c9376e5e-9639-43b3-bc01-59b96c0aadd6")
-		)
-		(pin "2"
-			(uuid "151916dc-c202-4bce-a8ed-e04765f0267f")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 252.73 48.26 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "4c5dab1b-95ed-4829-ae87-1b984a8ce7aa")
-		(property "Reference" "#PWR51"
-			(at 252.73 54.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "GND"
-			(at 252.73 52.07 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 252.73 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 252.73 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 252.73 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "1156f197-fe00-4ec6-b3f7-00aca4271c0c")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "#PWR51")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 261.62 27.94 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "99d53c50-7454-43ae-afa8-58e64a795e3a")
-		(property "Reference" "#PWR52"
-			(at 261.62 21.59 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Value" "+3V3"
-			(at 261.62 24.13 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 261.62 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Datasheet" ""
-			(at 261.62 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Description" ""
-			(at 261.62 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(pin "1"
-			(uuid "b73efb4e-a6fa-4177-9c7d-e17505166feb")
-		)
-		(instances
-			(project "curupira-diy"
-				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
-					(reference "#PWR52")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "BUZZER"
-		(at 237.49 43.18 180)
-		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right bottom)
-			)
-		(uuid "11fe9dc0-4905-49a5-ac3b-15ee48177b22")
-	)
 	(no_connect
 		(at 93.98 105.41)
 		(uuid "3270668a-4351-4b9b-9ec3-0ab939fdcf48")
@@ -12295,98 +11759,6 @@
 	(no_connect
 		(at 93.98 107.95)
 		(uuid "ff40feac-ebfa-44cc-9b23-2e60b585cb07")
-	)
-	(wire
-		(pts
-			(xy 252.73 38.1) (xy 252.73 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3e2d5a31-5083-4215-ab63-31a67f45c522")
-	)
-	(wire
-		(pts
-			(xy 252.73 35.56) (xy 257.81 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ef4a4d3c-b2ee-4d93-ac4f-489884efa78e")
-	)
-	(wire
-		(pts
-			(xy 257.81 35.56) (xy 261.62 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "334b8969-d9a9-4179-983d-457c9f4e9eb1")
-	)
-	(wire
-		(pts
-			(xy 257.81 36.83) (xy 257.81 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1477af23-ffc2-459c-a7a9-81907ce0554f")
-	)
-	(wire
-		(pts
-			(xy 261.62 30.48) (xy 261.62 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "11877efc-3055-4c63-a4f2-543680efad58")
-	)
-	(wire
-		(pts
-			(xy 257.81 29.21) (xy 257.81 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93c460b1-34dd-43fa-9ad6-5f27771eda09")
-	)
-	(wire
-		(pts
-			(xy 257.81 27.94) (xy 261.62 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "176deff0-2d25-42f4-91c7-26b65d5db32b")
-	)
-	(junction
-		(at 257.81 35.56)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "82c8bff5-4c71-4e41-bcfd-231e57dcf0ab")
-	)
-	(junction
-		(at 261.62 27.94)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e4ec0173-3c3d-4298-8ae8-396e6a9f9d96")
-	)
-	(label "BZ_K"
-		(at 252.73 36.83 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "3c20799e-854a-4691-8e73-00d799b6e6c5")
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x04_Odd_Even")
@@ -13054,4 +12426,283 @@
 		)
 	)
 	(embedded_fonts no)
+	(no_connect
+		(at 93.98 57.15)
+		(uuid "058884a5-8b15-4016-8c32-9121fa740af8")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 88.9 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d9456a5d-0c4a-42f2-a1e7-9440bc52fd44")
+		(property "Reference" "#PWR60"
+			(at 88.9 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 88.9 151.13 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5b9e2547-5aa9-42e1-8ba8-2e1efe1bc475")
+		)
+		(instances
+			(project "curupira-diy"
+				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
+					(reference "#PWR60")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 88.9 154.94) (xy 88.9 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be065a38-e6f8-40f9-8ec5-3facb21ca83f")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 88.9 162.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9941a531-3eb2-43d7-a864-b1f9f5617f03")
+		(property "Reference" "R10"
+			(at 91.44 161.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "22"
+			(at 91.44 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 88.9 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0446bfaf-ea6b-4649-8473-4e830596544f")
+		)
+		(pin "2"
+			(uuid "2208318f-ec82-4814-92ee-9de5a3d531df")
+		)
+		(instances
+			(project "curupira-diy"
+				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 88.9 166.37) (xy 88.9 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2eddd2da-03df-462e-a7d4-8fe1f7bc7b6d")
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 88.9 172.72 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "fbb5d0dd-39a2-4263-8f38-14e2265f4eb5")
+		(property "Reference" "D5"
+			(at 95.25 171.45 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "IR_940nm"
+			(at 95.25 173.99 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_THT:LED_D5.0mm"
+			(at 88.9 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 88.9 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "07911b64-6f5f-4d4d-855b-e3fdb50e80e3")
+		)
+		(pin "2"
+			(uuid "254c24a6-8867-4901-a035-cfd6a732ebca")
+		)
+		(instances
+			(project "curupira-diy"
+				(path "/ce8043db-ca9c-469c-a565-7619a05b7664"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "IR_K"
+		(at 88.9 176.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b60758b2-230d-4c7d-b6a9-b72805cad633")
+	)
+	(label "IR_K"
+		(at 101.6 176.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d339e237-7cf9-4e19-b037-e226d5ae019d")
+	)
 )

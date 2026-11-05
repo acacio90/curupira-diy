@@ -21,3 +21,10 @@ fp-info-cache
 # === Sistema ===
 .DS_Store
 Thumbs.db
+
+# relatórios e intermediários de roteamento
+*-drc.rpt
+*-erc.rpt
+*.dsn
+*.ses
+*.net

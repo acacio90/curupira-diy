@@ -26,7 +26,6 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 | NFC/RFID | PN532 (I2C) | J2 |
 | Armazenamento | microSD (SPI, 3,3 V) | J4 |
 | Infravermelho | TSOP38238 (RX) + LED IR 940 nm (TX) | U2/D3 |
-| Som | Buzzer passivo (GPIO3 via transistor) | BZ1 |
 | Teclado | M5Stack CardKB (I2C) | J8 |
 | GPS (opcional) | NEO-6M / NEO-M8N (UART) | J6 |
 | Energia | TP4056 (USB-C) + LiPo 3,7 V | J5 |
@@ -34,9 +33,9 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 
 ## Estado do projeto
 
-- **v0.3** — placa 100×100 mm, 4 furos M3, roteada, Gerbers em `production/`.
-- **Em andamento:** remapeamento do microSD (J4 → módulo 3,3 V real) e novo **arranjo "handheld"** (DevKit na base, tela ao centro, botões no polegar). **Ainda não fabricada.**
-- Plano: validar tudo na **protoboard** antes de mandar fabricar.
+- **v0.4** — placa 100×100 mm (2 camadas), 4 furos M3, **roteada e com DRC limpo** (0 violações). Gerbers em `production/curupira-v0.4-gerbers-jlcpcb.zip`.
+- **Novidades da v0.4:** buzzer removido (libera o GPIO3), **2 emissores de IR** (D3+D5 nos cantos de cima, mais alcance/cobertura), re-posicionamento dos componentes e **re-roteamento completo**, plano de GND costurado com vias de stitching, microSD remapeado p/ módulo 3,3 V.
+- **Ainda não fabricada** — plano: validar na **protoboard** antes de mandar fazer.
 
 ## Renders
 
@@ -64,7 +63,7 @@ production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 
 ## Como fabricar
 
-1. Envie `production/curupira-v0.3-gerbers-jlcpcb.zip` para a JLCPCB (2 camadas, 1,6 mm, HASL).
+1. Envie `production/curupira-v0.4-gerbers-jlcpcb.zip` para a JLCPCB (2 camadas, 1,6 mm, HASL).
 2. Compre as peças pela `production/LISTA_DE_COMPRAS.md`.
 3. Solde os THT à mão; encaixe o DevKit nas barras fêmea.
 4. Confira continuidade **3V3 ↔ GND** com multímetro **antes** de ligar.

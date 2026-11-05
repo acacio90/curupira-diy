@@ -40,12 +40,12 @@ Tudo componente PTH (furo passante) → fácil de soldar com ferro comum.
 | Botão VOLTAR | 7 | |
 | LED | 2 | LED → resistor 330 Ω → GND |
 | **v0.1** microSD CS | 41 | J4 **(v0.4)**: 3V3, CS, MOSI, SCK, MISO, GND — remapeado p/ o módulo comprado (3,3 V nativo, 18,5×17,5 mm) |
-| **v0.1** IR TX | 47 | R3 1k → base do BC337; LED IR + R2 22 Ω no coletor |
+| **v0.1** IR TX | 47 | R3 1k → base do Q1 (BC337); **2 LEDs IR em paralelo** no coletor — D3+R2 22Ω (topo-esq) e D5+R10 22Ω (topo-dir), ambos dobrados apontando p/ a borda de cima. Corrente ~160 mA no TX |
 | **v0.1** IR RX | 42 | saída do TSOP38238 |
 | **v0.1** Bateria (ADC) | 1 | divisor 100k/100k → lê metade da tensão da bateria |
 | **v0.1** VIN | pino 5V | J5 (OUT do TP4056) → chave LIGA → 1N5817 → 5V do DevKit |
 | **v0.1** GPS_TX (ESP RX) | 39 | J6 pino 3 → **TX** do GPS |
-| Buzzer | 3 | R9 1k → base do Q2 (BC337); buzzer passivo BZ1 entre 3V3 e o coletor, com 1N4148 (D4) em paralelo. Tocar com PWM/`tone()` |
+| *(livre)* | 3 | **buzzer removido** (eram BZ1+Q2+R9+D4); GPIO3 é strapping → deixado **sem uso** (no-connect no esquemático) p/ boot seguro |
 | *(livres)* | 45, 46 | liberados com a saída do alto-falante (eram LRC/DIN do MAX98357A) |
 | **v0.2** I2C extra | 8 / 18 | J8 em paralelo com o J2 (GND, 3V3, SDA, SCL) |
 | LED RGB do DevKit | 38 | só no DevKit **v1.1** (no v1.0 ele fica no 48, junto com o GPS) |
@@ -149,11 +149,12 @@ ler os botões; depois a tela com TFT_eSPI ou LovyanGFX.
 - **USB**: no arranjo atual as portas USB do DevKit ficam a ~15 mm da borda direita, **não**
   rentes à borda como na v0.3. Corrigir isso no arranjo final, senão o cabo não entra com a placa no case.
 - **Renders**: `renders/` (fundo transparente), recriados com `./renders/gerar.sh`.
-- **Som: alto-falante → buzzer**: o MAX98357A (J7, I2S em GPIO 3/45/46) saiu. No lugar entrou um
-  **buzzer passivo** (BZ1) acionado pelo GPIO3 via R9 1k + Q2 BC337, com diodo 1N4148 (D4) contra o
-  pico da bobina — mesmo esquema do IR TX. Isso libera os GPIO **45 e 46** (strapping; o 45 podia
-  impedir o boot). O GPIO3 também é de strapping, mas só pesa com eFuse de JTAG gravado; com a base
-  do transistor ele fica em nível baixo no boot. Faz bipes e melodias simples (PWM), não toca áudio.
+- **Som removido (sem buzzer)**: primeiro o MAX98357A (J7, I2S em GPIO 3/45/46) saiu, liberando os
+  GPIO **45 e 46**. Depois o buzzer passivo que o substituía (BZ1 + Q2 BC337 + R9 1k + D4 1N4148, no
+  GPIO3) foi **retirado também** — o dispositivo não tem saída sonora. Isso libera o **GPIO3**, que é
+  pino de **strapping**: deixá-lo **sem uso** (marcado *no-connect* no esquemático) é o estado de boot
+  mais seguro. Ao remover o buzzer no PCB, 2 pads THT do +3V3 que serviam de via F↔B foram substituídos
+  por 2 vias (106,95) e (106,104) para manter o +3V3 do microSD J4. DRC/paridade OK.
 
 ## Arranjo em dois lados (tudo dentro do contorno)
 
