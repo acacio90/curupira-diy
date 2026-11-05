@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste na protoboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap">
+<style>
+/* Manual de bancada: protoboard desenhada à esquerda, que vai sendo montada passo a passo; painel à direita com o que colocar, as ligações e o que esperar. */
+:root {
+  --bg: #eef2ee;
+  --surface: #ffffff;
+  --fg: #16201a;
+  --muted: #56645b;
+  --line: #d3dbd5;
+  --accent: #1f5c3f;
+  --focus: #2f6fd6;
+  --ok: #1c8f61;
+  --warn-bg: #fff4d6;
+  --warn-fg: #6b4a00;
+  --code-bg: #f3f6f4;
+  --bb: #f5f2ea;
+  --bb-edge: #d8d2c2;
+  --bb-gap: #e6e0d1;
+  --hole: #4a4a46;
+  --rail-p: #d64545;
+  --rail-m: #2f6fd6;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --c-energia: #d64545;
+  --c-gnd: #3d4650;
+  --c-spi: #2f6fd6;
+  --c-tela: #0a8ea4;
+  --c-rf: #7a4fd8;
+  --c-sd: #1c8f61;
+  --c-i2c: #b97f0c;
+  --c-botoes: #dd5f16;
+  --c-gps: #c93a83;
+  --c-ir: #8a5a2b;
+  --c-apoio: #5c7a17;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101612; --surface: #18211b; --fg: #e4ebe6; --muted: #9aab9f; --line: #2b372f;
+    --accent: #7fc8a0; --focus: #7aa7ff; --ok: #5fd39c; --warn-bg: #3a2f12; --warn-fg: #f3d58a;
+    --code-bg: #121a15; --bb: #dcd7ca; --bb-edge: #a9a291; --bb-gap: #cbc5b5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101612; --surface: #18211b; --fg: #e4ebe6; --muted: #9aab9f; --line: #2b372f;
+  --accent: #7fc8a0; --focus: #7aa7ff; --ok: #5fd39c; --warn-bg: #3a2f12; --warn-fg: #f3d58a;
+  --code-bg: #121a15; --bb: #dcd7ca; --bb-edge: #a9a291; --bb-gap: #cbc5b5;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding: 24px max(16px, env(safe-area-inset-right, 0px)) 48px max(16px, env(safe-area-inset-left, 0px));
+}
+.wrap { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 24px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.05; margin: 2px 0 4px; }
+.lede { margin: 0; color: var(--muted); max-width: 70ch; }
+.theme { font: 500 13px var(--font-body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+
+.stepper { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.stepper button {
+  flex: 0 0 auto; display: flex; align-items: center; gap: 6px; font: 500 13px var(--font-body); color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px 5px 6px; cursor: pointer; white-space: nowrap;
+}
+.stepper button .num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); font: 600 12px var(--font-mono); color: var(--fg); }
+.stepper button[aria-current="step"] { color: var(--fg); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.stepper button[aria-current="step"] .num { background: var(--accent); color: var(--surface); }
+.stepper button.done .num { background: var(--ok); color: #fff; }
+.stepper button:focus-visible, .nav button:focus-visible, .theme:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 18px; align-items: start; }
+@media (max-width: 1080px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.stage { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; position: sticky; top: 12px; }
+@media (max-width: 1080px) { .stage { position: static; } }
+.stage svg { display: block; width: 100%; height: auto; }
+.stage-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; padding: 4px 4px 10px; font-size: 13px; color: var(--muted); }
+.stage-bar label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+.note-scale { font-size: 12px; color: var(--muted); padding: 8px 4px 0; margin: 0; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 14px; }
+.panel h2 { font-family: var(--font-display); font-size: 26px; line-height: 1.1; margin: 0; }
+.panel .kicker { font: 600 12px var(--font-mono); color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+.panel h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+.panel p { margin: 0; }
+.panel ul { margin: 0; padding-left: 18px; }
+.panel li { margin: 2px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+td, th { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 12px; }
+td.pin { font-family: var(--font-mono); white-space: nowrap; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.checks label { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; cursor: pointer; }
+.checks input { margin-top: 4px; accent-color: var(--ok); width: 16px; height: 16px; flex: 0 0 auto; }
+.checks input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--ok); }
+.warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+.warn ul { padding-left: 16px; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0; overflow-x: auto; font: 12.5px/1.5 var(--font-mono); }
+textarea { width: 100%; min-height: 64px; resize: vertical; font: 14px var(--font-body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+.nav { display: flex; gap: 8px; justify-content: space-between; padding-top: 4px; }
+.nav button { font: 600 14px var(--font-body); border-radius: 8px; padding: 9px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.nav button.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.nav button:disabled { opacity: .4; cursor: default; }
+kbd { font: 12px var(--font-mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+
+/* SVG */
+.el { transition: opacity .25s; }
+.el.future { display: none; }
+.el.past { opacity: .38; }
+.el.base { opacity: 1; }
+.hide-past .el.past:not(.keep) { opacity: 0; pointer-events: none; }
+.el.now { animation: pop .45s ease-out; }
+.el.focus { opacity: 1; }
+.el:hover { opacity: 1; }
+.el.now .wire-c, .el.focus .wire-c { filter: drop-shadow(0 0 2px rgba(255,255,255,.9)); }
+@keyframes pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .el.now { animation: none; } .el { transition: none; } }
+.wire-o { fill: none; stroke: rgba(0,0,0,.45); stroke-width: 5.2; stroke-linecap: round; }
+.wire-c { fill: none; stroke-width: 3.2; stroke-linecap: round; }
+.el:hover .wire-c { stroke-width: 4.4; }
+.lbl { font: 600 9px var(--font-mono); fill: #1b1b1b; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 2.6px; }
+.mod-t { font: 700 12px var(--font-display); fill: #fff; }
+.mod-s { font: 500 9px var(--font-mono); fill: rgba(255,255,255,.8); }
+.mod-p { font: 600 8px var(--font-mono); fill: #fff; }
+.pinlbl { font: 600 7.5px var(--font-mono); fill: #e9eef0; }
+.rowlbl { font: 600 8px var(--font-mono); fill: #8f897a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">CURUPIRA v0.4.1 · manual de bancada</div>
+      <h1>Teste na protoboard, passo a passo</h1>
+      <p class="lede">Cada passo coloca um bloco do circuito na protoboard. Monte, rode o teste, marque o que passou e só então avance. Os blocos anteriores ficam montados: no final está tudo ligado junto, como na placa.</p>
+    </div>
+    <button class="theme" id="themeBtn" type="button">Tema: automático</button>
+  </header>
+
+  <nav class="stepper" id="stepper" aria-label="Passos"></nav>
+
+  <div class="main">
+    <section class="stage" aria-label="Protoboard">
+      <div class="stage-bar">
+        <label><input type="checkbox" id="showPast" checked> mostrar o que já foi montado</label>
+        <div class="legend" id="legend"></div>
+      </div>
+      <svg id="board" viewBox="0 0 1210 700" role="img" aria-label="Desenho da protoboard com o DevKit e os componentes do passo atual"></svg>
+      <p class="note-scale">Desenho esquemático, fora de escala. Os módulos (tela, SD, rádios, NFC, teclado, GPS, carregador) ficam fora da protoboard, ligados por jumpers macho-fêmea. Passe o mouse num fio ou peça para ver o que ele liga.</p>
+    </section>
+
+    <section class="panel" id="panel" aria-live="polite"></section>
+  </div>
+</div>
+
+<script>
+/* ---------- geometria ---------- */
+const P = 14, BX = 64;
+const BY = { 1: 190, 2: 444 };
+const RY = { tp: 0, tm: 1, a: 2.6, b: 3.6, c: 4.6, d: 5.6, e: 6.6, f: 8.8, g: 9.8, h: 10.8, i: 11.8, j: 12.8, bp: 14.4, bm: 15.4 };
+const H = (b, r, c) => [BX + c * P, BY[b] + 16 + RY[r] * P];
+const COLORS = {
+  energia: "var(--c-energia)", gnd: "var(--c-gnd)", spi: "var(--c-spi)", tela: "var(--c-tela)", rf: "var(--c-rf)",
+  sd: "var(--c-sd)", i2c: "var(--c-i2c)", botoes: "var(--c-botoes)", gps: "var(--c-gps)", ir: "var(--c-ir)", apoio: "var(--c-apoio)"
+};
+const LEGEND = [["energia","3V3 / 5V"],["gnd","GND"],["spi","SPI"],["tela","tela"],["sd","SD"],["rf","rádios"],["i2c","I2C"],["botoes","botões/LED"],["ir","IR"],["gps","GPS"],["apoio","bateria"]];
+
+/* Pinos físicos do ESP32-S3-DevKitC-1, girado com o USB à esquerda: pino n de J1/J3 fica na coluna 30-n */
+const J1 = ["3V3","3V3","RST","4","5","6","7","15","16","17","18","8","3","46","9","10","11","12","13","14","5V","GND"];
+const J3 = ["GND","TX","RX","1","2","42","41","40","39","38","37","36","35","0","45","48","47","21","20","19","GND","GND"];
+const col = n => 30 - n;
+
+/* ---------- módulos fora da protoboard ---------- */
+const MODS = {
+  tft:  { step: 3, x: 66,  y: 26, edge: "bottom", fill: "#173a63", title: "Tela ST7789", sub: "SPI · J1", pins: ["GND","VCC","SCL","SDA","RES","DC","CS","BLK"], cat: "tela" },
+  sd:   { step: 4, x: 226, y: 46, edge: "bottom", fill: "#1d5a8f", title: "microSD", sub: "3,3 V · J4", pins: ["3V3","CS","MOSI","CLK","MISO","GND"], cat: "sd" },
+  cc:   { step: 7, x: 356, y: 26, edge: "bottom", fill: "#1f6b3a", title: "CC1101", sub: "E07-M1101D · J3", pins: ["VCC","GND","CSN","SCK","MOSI","MISO","GDO0","GDO2"], cat: "rf", ant: true },
+  nrf:  { step: 8, x: 516, y: 26, edge: "bottom", fill: "#22272b", title: "NRF24L01+PA", sub: "2,4 GHz · J9", pins: ["GND","VCC","CE","CSN","SCK","MOSI","MISO","IRQ"], cat: "rf", ant: true, cap: true },
+  tp:   { step: 10, x: 836, y: 46, edge: "bottom", fill: "#1d4f8f", title: "TP4056", sub: "+ LiPo 3,7 V · J5", pins: ["OUT+","OUT−"], cat: "apoio", bat: true },
+  pn:   { step: 5, x: 1030, y: 196, edge: "left", fill: "#a3262a", title: "PN532", sub: "NFC · I2C · J2", pins: ["GND","VCC","SDA","SCL"], cat: "i2c" },
+  kb:   { step: 5, x: 1030, y: 330, edge: "left", fill: "#2a2a2a", title: "CardKB", sub: "I2C 0x5F · J8", pins: ["GND","VCC","SDA","SCL"], cat: "i2c" },
+  gps:  { step: 11, x: 1030, y: 470, edge: "left", fill: "#1f4a7a", title: "GPS NEO-6M", sub: "UART · J6 (opcional)", pins: ["VCC","GND","TX","RX"], cat: "gps" }
+};
+for (const m of Object.values(MODS)) {
+  if (m.edge === "bottom") { m.w = m.pins.length * P + 24; m.h = 104; if (m.pins.length < 4) m.w = 110; }
+  else { m.w = 150; m.h = m.pins.length * P + 52; }
+}
+function M(id, name) {
+  const m = MODS[id], i = m.pins.indexOf(name);
+  if (m.edge === "bottom") return [m.x + 12 + i * P + P / 2, m.y + m.h];
+  return [m.x, m.y + 36 + i * P];
+}
+
+/* ---------- elementos montados em cada passo ---------- */
+const E = [];
+const w  = (step, a, b, cat, tip) => E.push({ t: "wire", step, a, b, cat, tip });
+const R  = (step, a, b, val, ref, cat) => E.push({ t: "res", step, a, b, val, ref, cat });
+const L  = (step, a, k, color, ref, cat) => E.push({ t: "led", step, a, b: k, color, ref, cat });
+
+// 1 — DevKit e trilhos
+E.push({ t: "devkit", step: 1, cat: "energia" });
+w(1, H(1,"f",29), H(1,"tp",29), "energia", "3V3 (J1 pino 1) → trilho + de cima");
+w(1, H(1,"f",8),  H(1,"tm",8),  "gnd", "GND (J1 pino 22) → trilho − de cima");
+w(1, H(2,"e",29), H(2,"bm",29), "gnd", "GND (J3 pino 1) → trilho − de baixo");
+w(1, H(1,"tp",62), H(2,"bp",62), "energia", "ponte 3V3: trilho + de cima ↔ de baixo");
+w(1, H(1,"tm",61), H(2,"bm",61), "gnd", "ponte GND: trilho − de cima ↔ de baixo");
+
+// 2 — LED e botões
+R(2, H(2,"e",25), H(2,"f",25), "330 Ω", "R1", "botoes");
+L(2, H(2,"j",25), H(2,"bm",26), "#e5484d", "D1", "botoes");
+[["CIMA",26,33],["BAIXO",25,37],["OK",24,41],["VOLTAR",23,45]].forEach(([n, c, b], i) => {
+  E.push({ t: "btn", step: 2, c1: b, c2: b + 2, ref: "SW" + (i + 1), name: n, cat: "botoes" });
+  w(2, H(1,"g",c), H(1,"h",b), "botoes", `GPIO${J1[30-c-1]} → botão ${n}`);
+  w(2, H(1,"a",b+2), H(1,"tm",b+2), "gnd", `botão ${n} → GND`);
+});
+
+// 3 — barramento SPI + tela
+w(3, H(1,"f",12), H(1,"e",12), "spi", "SCK (GPIO12) → barramento SCK (coluna de cima)");
+w(3, H(1,"f",13), H(1,"e",13), "spi", "MOSI (GPIO11) → barramento MOSI");
+w(3, H(1,"f",11), H(1,"e",11), "spi", "MISO (GPIO13) → barramento MISO");
+w(3, M("tft","GND"), H(1,"tm",3), "gnd", "Tela GND → trilho −");
+w(3, M("tft","VCC"), H(1,"tp",4), "energia", "Tela VCC → trilho + (3V3)");
+w(3, M("tft","SCL"), H(1,"d",12), "spi", "Tela SCL → SCK (GPIO12)");
+w(3, M("tft","SDA"), H(1,"d",13), "spi", "Tela SDA → MOSI (GPIO11)");
+w(3, M("tft","RES"), H(1,"g",10), "tela", "Tela RES → GPIO14");
+w(3, M("tft","DC"),  H(1,"g",15), "tela", "Tela DC → GPIO9");
+w(3, M("tft","CS"),  H(1,"g",14), "tela", "Tela CS → GPIO10");
+w(3, M("tft","BLK"), H(2,"d",12), "tela", "Tela BLK → GPIO21");
+
+// 4 — microSD
+R(4, H(2,"e",23), H(2,"f",23), "10 kΩ", "R6", "sd");
+w(4, H(2,"h",23), H(2,"bp",23), "energia", "pull-up do SD_CS → 3V3");
+w(4, M("sd","3V3"),  H(1,"tp",20), "energia", "SD 3V3 → trilho +");
+w(4, M("sd","CS"),   H(2,"d",23), "sd", "SD CS → GPIO41");
+w(4, M("sd","MOSI"), H(1,"c",13), "spi", "SD MOSI → barramento MOSI");
+w(4, M("sd","CLK"),  H(1,"c",12), "spi", "SD CLK → barramento SCK");
+w(4, M("sd","MISO"), H(1,"c",11), "spi", "SD MISO → barramento MISO");
+w(4, M("sd","GND"),  H(1,"tm",18), "gnd", "SD GND → trilho −");
+
+// 5 — I2C
+w(5, M("pn","GND"), H(1,"tm",60), "gnd", "PN532 GND → trilho −");
+w(5, M("pn","VCC"), H(1,"tp",58), "energia", "PN532 VCC → trilho + (3V3)");
+w(5, M("pn","SDA"), H(1,"g",18), "i2c", "PN532 SDA → GPIO8");
+w(5, M("pn","SCL"), H(1,"g",19), "i2c", "PN532 SCL → GPIO18");
+w(5, M("kb","GND"), H(2,"bm",57), "gnd", "CardKB GND (preto) → trilho −");
+w(5, M("kb","VCC"), H(2,"bp",56), "energia", "CardKB VCC (vermelho) → trilho + (3V3)");
+w(5, M("kb","SDA"), H(1,"h",18), "i2c", "CardKB SDA (amarelo) → GPIO8");
+w(5, M("kb","SCL"), H(1,"h",19), "i2c", "CardKB SCL (branco) → GPIO18");
+
+// 6 — IR
+E.push({ t: "tsop", step: 6, b: 2, r: "g", c: 40, ref: "U2", cat: "ir" });
+w(6, H(2,"d",24), H(2,"f",40), "ir", "GPIO42 → OUT do TSOP");
+w(6, H(2,"j",41), H(2,"bm",41), "gnd", "TSOP GND → trilho −");
+w(6, H(2,"j",42), H(2,"bp",42), "energia", "TSOP VS → trilho + (3V3)");
+R(6, H(2,"e",13), H(2,"f",13), "1 kΩ", "R3", "ir");
+E.push({ t: "tr", step: 6, b: 2, r: "h", c: 12, ref: "Q1", cat: "ir" });
+w(6, H(2,"j",14), H(2,"bm",14), "gnd", "emissor do Q1 → GND");
+R(6, H(2,"bp",10), H(2,"j",10), "22 Ω", "R2", "ir");
+L(6, H(2,"g",10), H(2,"g",12), "#5b4b8a", "D3", "ir");
+R(6, H(2,"bp",16), H(2,"j",16), "22 Ω", "R10", "ir");
+L(6, H(2,"g",16), H(2,"g",15), "#5b4b8a", "D5", "ir");
+w(6, H(2,"f",15), H(2,"f",12), "ir", "catodo do D5 → coletor do Q1");
+
+// 7 — CC1101
+R(7, H(1,"f",22), H(1,"e",22), "10 kΩ", "R7", "rf");
+w(7, H(1,"a",22), H(1,"tp",22), "energia", "pull-up do CS1 → 3V3");
+w(7, M("cc","VCC"),  H(1,"tp",36), "energia", "CC1101 VCC → trilho + (3V3)");
+w(7, M("cc","GND"),  H(1,"tm",37), "gnd", "CC1101 GND → trilho −");
+w(7, M("cc","CSN"),  H(1,"g",22), "rf", "CC1101 CSN → GPIO15");
+w(7, M("cc","SCK"),  H(1,"b",12), "spi", "CC1101 SCK → barramento SCK");
+w(7, M("cc","MOSI"), H(1,"b",13), "spi", "CC1101 MOSI → barramento MOSI");
+w(7, M("cc","MISO"), H(1,"b",11), "spi", "CC1101 MISO → barramento MISO");
+w(7, M("cc","GDO0"), H(1,"g",20), "rf", "CC1101 GDO0 → GPIO17");
+
+// 8 — NRF24
+R(8, H(1,"f",21), H(1,"e",21), "10 kΩ", "R8", "rf");
+w(8, H(1,"a",21), H(1,"tp",21), "energia", "pull-up do CS2 → 3V3");
+w(8, M("nrf","GND"),  H(1,"tm",45), "gnd", "NRF24 GND → trilho −");
+w(8, M("nrf","VCC"),  H(1,"tp",44), "energia", "NRF24 VCC → trilho + (3V3)");
+w(8, M("nrf","CE"),   H(2,"d",22), "rf", "NRF24 CE → GPIO40");
+w(8, M("nrf","CSN"),  H(1,"g",21), "rf", "NRF24 CSN → GPIO16");
+w(8, M("nrf","SCK"),  H(1,"a",12), "spi", "NRF24 SCK → barramento SCK");
+w(8, M("nrf","MOSI"), H(1,"a",13), "spi", "NRF24 MOSI → barramento MOSI");
+w(8, M("nrf","MISO"), H(1,"a",11), "spi", "NRF24 MISO → barramento MISO");
+
+// 10 — energia
+E.push({ t: "sw", step: 10, b: 1, r: "e", c: 50, ref: "SW5", cat: "apoio" });
+w(10, M("tp","OUT+"), H(1,"a",50), "apoio", "TP4056 OUT+ → chave LIGA");
+w(10, M("tp","OUT−"), H(1,"tm",49), "gnd", "TP4056 OUT− → trilho −");
+E.push({ t: "diode", step: 10, a: H(1,"b",51), b: H(1,"b",55), ref: "D2", val: "1N5817", cat: "apoio" });
+w(10, H(1,"c",55), H(1,"h",9), "energia", "catodo do 1N5817 → pino 5V do DevKit");
+R(10, H(1,"d",51), H(1,"d",57), "100 kΩ", "R4", "apoio");
+R(10, H(1,"a",57), H(1,"tm",57), "100 kΩ", "R5", "apoio");
+E.push({ t: "cap", step: 10, a: H(1,"c",57), b: H(1,"c",59), ref: "C2", val: "100 nF", cat: "apoio" });
+w(10, H(1,"a",59), H(1,"tm",59), "gnd", "C2 → GND");
+w(10, H(1,"e",57), H(2,"c",26), "apoio", "divisor (BAT_ADC) → GPIO1");
+
+// 11 — GPS
+w(11, M("gps","VCC"), H(2,"bp",52), "energia", "GPS VCC → trilho + (3V3)");
+w(11, M("gps","GND"), H(2,"bm",53), "gnd", "GPS GND → trilho −");
+w(11, M("gps","TX"),  H(2,"d",21), "gps", "GPS TX → GPIO39 (RX do ESP)");
+w(11, M("gps","RX"),  H(2,"d",14), "gps", "GPS RX → GPIO48 (TX do ESP)");
+
+/* pinos do DevKit usados em cada passo (etiqueta colorida) */
+const PINUSE = [
+  [1,"J1",1,"energia"],[1,"J1",22,"gnd"],[1,"J3",1,"gnd"],
+  [2,"J3",5,"botoes"],[2,"J1",4,"botoes"],[2,"J1",5,"botoes"],[2,"J1",6,"botoes"],[2,"J1",7,"botoes"],
+  [3,"J1",18,"spi"],[3,"J1",17,"spi"],[3,"J1",19,"spi"],[3,"J1",20,"tela"],[3,"J1",15,"tela"],[3,"J1",16,"tela"],[3,"J3",18,"tela"],
+  [4,"J3",7,"sd"],[5,"J1",12,"i2c"],[5,"J1",11,"i2c"],[6,"J3",6,"ir"],[6,"J3",17,"ir"],
+  [7,"J1",8,"rf"],[7,"J1",10,"rf"],[8,"J1",9,"rf"],[8,"J3",8,"rf"],[10,"J1",21,"energia"],[10,"J3",4,"apoio"],
+  [11,"J3",9,"gps"],[11,"J3",16,"gps"]
+];
+
+/* ---------- conteúdo dos passos ---------- */
+const STEPS = [
+  { title: "Materiais e segurança", short: "Preparar",
+    goal: "Separar o material, configurar a IDE e combinar as regras de segurança antes de ligar qualquer coisa.",
+    parts: ["2 protoboards de 830 furos, lado a lado (o DevKitC-1 é largo demais para uma só)", "ESP32-S3-DevKitC-1 N16R8 + cabo USB-C <b>de dados</b>", "Jumpers macho-macho e macho-fêmea", "Multímetro", "Peças e módulos da <code>production/LISTA_DE_COMPRAS.md</code>"],
+    expect: ["Arduino IDE 2 (ou PlatformIO) com o core <b>esp32 (Espressif)</b> instalado", "Placa <i>ESP32S3 Dev Module</i>: Flash 16MB, PSRAM <b>OPI PSRAM</b>, USB CDC On Boot <b>Enabled</b>", "Multímetro testado no modo continuidade (apita ao encostar as pontas)"],
+    warn: ["Módulos <b>só em 3V3</b>. 5V queima CC1101, NRF24 e SD.", "Mexa nos fios sempre <b>com o USB desconectado</b>.", "Antes de cada energização: continuidade <b>3V3 ↔ GND não pode apitar</b>.", "Não use os GPIO 0, 3, 45, 46 (strapping), 19/20 (USB) nem 26–37 (flash/PSRAM)."] },
+
+  { title: "DevKit e alimentação dos trilhos", short: "DevKit",
+    goal: "Encaixar o DevKit entre as duas protoboards, levar 3V3 e GND para os trilhos e confirmar que ele grava e tem as memórias certas.",
+    parts: ["DevKit com o USB para a esquerda: fileira J1 na protoboard de cima, J3 na de baixo", "5 jumpers: 3V3 e GND para os trilhos + 2 pontes entre as placas"],
+    wiring: [["J1 pino 1 (3V3)","trilho + de cima","energia"],["J1 pino 22 (GND)","trilho − de cima","gnd"],["J3 pino 1 (GND)","trilho − de baixo","gnd"],["trilho + de cima","trilho + de baixo","energia"],["trilho − de cima","trilho − de baixo","gnd"]],
+    expect: ["Aparece \"oi\" no Monitor Serial a cada segundo", "Flash = <b>16 MB</b> e PSRAM ≈ <b>8192 KB</b>", "LED RGB acende azul com o GPIO 38 → DevKit v1.1 (se não, teste o 48: é v1.0 e conflita com o GPS_RX)", "Com o USB desligado: 3V3 ↔ GND sem continuidade"],
+    warn: ["Os trilhos do meio ficam embaixo do DevKit: não use."],
+    code: `void setup() {\n  Serial.begin(115200); delay(1500);\n  Serial.printf("Flash %u MB, PSRAM %u KB\\n",\n    ESP.getFlashChipSize() >> 20, ESP.getPsramSize() >> 10);\n  neopixelWrite(38, 0, 0, 20);   // RGB azul (v1.1)\n}\nvoid loop() { Serial.println("oi"); delay(1000); }` },
+
+  { title: "LED de status e 4 botões", short: "LED + botões",
+    goal: "Testar saída digital (LED no GPIO 2) e as 4 entradas com pull-up interno, igual à PCB.",
+    parts: ["R1 330 Ω + D1 LED 3 mm (perna longa = anodo, no lado do resistor)", "SW1–SW4: botões 6×6 atravessando o vão central da protoboard de cima"],
+    wiring: [["GPIO2 → R1 330 Ω","anodo do D1; catodo → GND","botoes"],["GPIO4","SW1 CIMA → GND","botoes"],["GPIO5","SW2 BAIXO → GND","botoes"],["GPIO6","SW3 OK → GND","botoes"],["GPIO7","SW4 VOLTAR → GND","botoes"]],
+    expect: ["O LED pisca", "Cada botão imprime o próprio nome <b>uma vez</b> por toque", "Nenhum botão aparece \"apertado\" sozinho (se aparecer, gire o botão 90°)"],
+    code: `const int B[] = {4, 5, 6, 7};\nconst char* N[] = {"CIMA", "BAIXO", "OK", "VOLTAR"};\nvoid setup() {\n  Serial.begin(115200); pinMode(2, OUTPUT);\n  for (int p : B) pinMode(p, INPUT_PULLUP);\n}\nvoid loop() {\n  digitalWrite(2, millis() / 500 % 2);\n  for (int i = 0; i < 4; i++)\n    if (!digitalRead(B[i])) { Serial.println(N[i]); delay(250); }\n}` },
+
+  { title: "Barramento SPI e tela ST7789", short: "Tela",
+    goal: "Criar o barramento SPI compartilhado e fazer a tela desenhar. Tudo o que vier depois (SD e rádios) pendura neste mesmo barramento.",
+    parts: ["3 jumpers curtos levando SCK, MOSI e MISO para as colunas de cima (cada uma ganha 4 furos livres)", "Tela ST7789 (8 pinos) com jumpers macho-fêmea"],
+    wiring: [["Tela GND / VCC","trilho − / trilho + (3V3)","energia"],["Tela SCL","SCK · GPIO12","spi"],["Tela SDA","MOSI · GPIO11","spi"],["Tela RES","GPIO14","tela"],["Tela DC","GPIO9","tela"],["Tela CS","GPIO10","tela"],["Tela BLK","GPIO21","tela"]],
+    expect: ["Tela desenha, sem ficar toda branca", "Cores certas: vermelho é vermelho (se vier trocado, use <code>invertDisplay</code> ou mude a ordem RGB/BGR)", "Backlight responde ao GPIO 21", "<b>Anote a resolução e o offset</b> que funcionaram: o Bruce vai precisar"],
+    warn: ["\"SCL/SDA\" da tela são SCK/MOSI do SPI, não I2C."],
+    code: `// TFT_eSPI (User_Setup.h)\n#define ST7789_DRIVER\n#define TFT_WIDTH  170   // ajuste ao seu módulo\n#define TFT_HEIGHT 320\n#define TFT_MOSI 11\n#define TFT_SCLK 12\n#define TFT_CS   10\n#define TFT_DC    9\n#define TFT_RST  14\n#define TFT_BL   21` },
+
+  { title: "microSD no mesmo SPI", short: "microSD",
+    goal: "Ler e gravar no cartão e provar que o SD e a tela convivem no barramento.",
+    parts: ["Módulo microSD 3,3 V (ordem 3V3, CS, MOSI, CLK, MISO, GND)", "R6 10 kΩ de pull-up no CS (GPIO41 → 3V3)", "Cartão FAT32"],
+    wiring: [["SD 3V3 / GND","trilho + / trilho −","energia"],["SD CS","GPIO41 (+ R6 10 kΩ → 3V3)","sd"],["SD MOSI / CLK / MISO","barramento MOSI / SCK / MISO (GPIO13)","spi"]],
+    expect: ["O exemplo <code>SD_Test</code> lista os arquivos", "Grava um <code>.txt</code> e lê de volta igual", "Com a tela ligada: desenha → grava no SD → desenha de novo, sem travar"],
+    code: `#include <SD.h>\n#include <SPI.h>\nSPI.begin(12, 13, 11);        // SCK, MISO, MOSI\nif (!SD.begin(41)) Serial.println("SD falhou");` },
+
+  { title: "I2C: PN532 e CardKB", short: "I2C",
+    goal: "Os dois dispositivos I2C no mesmo barramento (na PCB, J2 e J8 ficam em paralelo).",
+    parts: ["PN532 com as chaves em <b>modo I2C</b> (geralmente SW1 = ON, SW2 = OFF)", "CardKB com cabo Grove → dupont (preto GND, vermelho 3V3, amarelo SDA, branco SCL)"],
+    wiring: [["SDA (PN532 e CardKB)","GPIO8","i2c"],["SCL (PN532 e CardKB)","GPIO18","i2c"],["VCC / GND","trilhos 3V3 / GND","energia"]],
+    expect: ["O scanner I2C acha <b>0x24</b> (PN532) e <b>0x5F</b> (CardKB)", "O PN532 lê o UID de um cartão ou tag", "O CardKB imprime as teclas apertadas"],
+    warn: ["Na PCB a ordem dos pinos é diferente nos dois conectores: J2 = SCL, SDA, 3V3, GND · J8 = GND, 3V3, SDA, SCL."],
+    code: `#include <Wire.h>\nvoid setup() {\n  Serial.begin(115200); Wire.begin(8, 18);\n  for (byte a = 1; a < 127; a++) {\n    Wire.beginTransmission(a);\n    if (!Wire.endTransmission()) Serial.printf("0x%02X\\n", a);\n  }\n}\nvoid loop() {}` },
+
+  { title: "Infravermelho: RX e 2 emissores", short: "IR",
+    goal: "Receber o código de um controle remoto e reenviar pelos dois LEDs IR em paralelo, com o mesmo driver da PCB.",
+    parts: ["U2 TSOP38238 (OUT, GND, VS). O VS1838B tem outra ordem: OUT, GND, VCC", "Q1 BC337: face reta para você = C, B, E", "R3 1 kΩ na base", "D3 e D5 LED IR 940 nm, cada um com seu resistor de 22 Ω (R2, R10) vindo do 3V3"],
+    wiring: [["GPIO42","OUT do TSOP","ir"],["GPIO47 → R3 1 kΩ","base do Q1","ir"],["3V3 → R2 22 Ω → D3","coletor do Q1","ir"],["3V3 → R10 22 Ω → D5","coletor do Q1","ir"],["emissor do Q1","GND","gnd"]],
+    expect: ["O RX decodifica o protocolo de um controle de TV (NEC, Samsung…)", "A câmera do celular (a frontal costuma não ter filtro) mostra <b>os 2 LEDs</b> piscando", "A TV obedece ao comando reenviado; anote a distância máxima"],
+    warn: ["São ~160 mA no total. Só em pulsos (portadora de 38 kHz): <b>não deixe o GPIO 47 em HIGH parado</b>, senão os resistores e os LEDs esquentam."],
+    code: `// IRremoteESP8266\nIRrecv rx(42);  IRsend tx(47);\n// setup: rx.enableIRIn(); tx.begin();\n// loop:  if (rx.decode(&r)) { Serial.println(resultToHumanReadableBasic(&r)); rx.resume(); }` },
+
+  { title: "CC1101 (Sub-GHz)", short: "CC1101",
+    goal: "Detectar o rádio CC1101 no barramento SPI e receber o sinal de um controle 433 MHz seu.",
+    parts: ["CC1101 E07-M1101D com antena SMA", "R7 10 kΩ de pull-up no CSN (GPIO15 → 3V3)"],
+    wiring: [["VCC / GND","trilho + / trilho −","energia"],["CSN","GPIO15 (+ R7 → 3V3)","rf"],["SCK / MOSI / MISO","barramento SPI","spi"],["GDO0","GPIO17","rf"],["GDO2","solto","gnd"]],
+    expect: ["<code>ELECHOUSE_cc1101.getCC1101()</code> retorna <b>true</b>", "Em modo RX, aparece o sinal de um controle 433 MHz seu (portão, tomada RF)", "O módulo é o E07-M1101D, ou tem a mesma pinagem (o J3 da PCB foi desenhado pra ele, encaixado de face pra fora)"],
+    warn: ["Ligue o módulo <b>pelo nome do pino</b> impresso nele, não pela posição. Na PCB, J3-1 MISO · J3-3 SCK · J3-4 MOSI · J3-5 GDO0 · J3-6 CSN · J3-7 GND · J3-8 VCC."],
+    code: `#include <ELECHOUSE_CC1101_SRC_DRV.h>\nELECHOUSE_cc1101.setSpiPin(12, 13, 11, 15); // SCK, MISO, MOSI, CS\nELECHOUSE_cc1101.setGDO0(17);\nSerial.println(ELECHOUSE_cc1101.getCC1101() ? "CC1101 ok" : "sem CC1101");` },
+
+  { title: "NRF24L01+PA+LNA (2,4 GHz)", short: "NRF24",
+    goal: "Detectar o NRF24 no barramento e ver atividade nos canais de 2,4 GHz.",
+    parts: ["NRF24L01+PA+LNA", "R8 10 kΩ de pull-up no CSN (GPIO16 → 3V3)", "Capacitor eletrolítico 10–100 µF soldado no VCC/GND do módulo (perna − no GND)"],
+    wiring: [["GND / VCC","trilho − / trilho + (3V3)","energia"],["CE","GPIO40","rf"],["CSN","GPIO16 (+ R8 → 3V3)","rf"],["SCK / MOSI / MISO","barramento SPI","spi"],["IRQ","solto","gnd"]],
+    expect: ["<code>radio.isChipConnected()</code> = <b>true</b>", "<code>printPrettyDetails()</code> mostra registradores coerentes (não tudo 0x00 ou 0xFF)", "O exemplo <i>scanner</i> mostra atividade nos canais do seu WiFi"],
+    warn: ["O PA+LNA puxa picos altos. Se ele \"some\" de vez em quando, é alimentação: capacitor maior e fios mais curtos."],
+    code: `#include <RF24.h>\nRF24 radio(40, 16);           // CE, CSN\nSPI.begin(12, 13, 11);\nradio.begin();\nSerial.println(radio.isChipConnected() ? "NRF24 ok" : "sem NRF24");` },
+
+  { title: "Barramento SPI completo", short: "SPI junto", focus: "spi",
+    goal: "O teste mais importante: tela, SD, CC1101 e NRF24 todos no mesmo SCK/MOSI/MISO, cada um com seu CS e pull-up. Nenhuma peça nova; os fios do SPI estão destacados.",
+    parts: ["Nada novo: só o sketch de teste"],
+    wiring: [["CS da tela","GPIO10","tela"],["CS do SD","GPIO41 + R6","sd"],["CSN do CC1101","GPIO15 + R7","rf"],["CSN do NRF24","GPIO16 + R8","rf"]],
+    expect: ["Em loop (desenha → grava no SD → lê o ID do CC1101 → <code>isChipConnected()</code> do NRF24), roda <b>10 minutos</b> sem nenhuma falha", "Tirando o cartão SD com tudo ligado, os outros continuam funcionando"],
+    warn: ["Se algo só falha com os outros ligados: CS sem pull-up, fio de MISO comprido demais ou falta de corrente no 3V3 (veja o próximo passo)."] },
+
+  { title: "Energia: bateria, chave e leitura", short: "Bateria",
+    goal: "Ligar pela LiPo do jeito que a PCB faz e conferir a leitura da tensão da bateria no GPIO 1.",
+    parts: ["TP4056 com proteção + LiPo 3,7 V", "SW5 chave deslizante (pino do meio = comum)", "D2 1N5817 (faixa = catodo, para o lado do 5V)", "R4 e R5 100 kΩ (divisor) + C2 100 nF"],
+    wiring: [["TP4056 OUT+ → chave LIGA","1N5817 → pino 5V do DevKit","energia"],["depois da chave → R4 100 kΩ","GPIO1 (BAT_ADC), com R5 100 kΩ e C2 para o GND","apoio"],["TP4056 OUT−","trilho −","gnd"]],
+    expect: ["Só com a bateria (sem USB) o DevKit liga e a tela acende", "<code>analogReadMilliVolts(1) × 2</code> ≈ tensão da bateria no multímetro (±0,1 V)", "Com USB e bateria juntos, nada esquenta (o 1N5817 impede o 5V de voltar)", "O LED do TP4056 muda de cor ao terminar a carga", "Anote o consumo com WiFi, NRF24 e CC1101 ativos (multímetro em série no OUT+)", "O 3V3 não cai abaixo de ~3,2 V com tudo transmitindo"],
+    warn: ["Confira a polaridade da LiPo no B+/B− do TP4056 <b>antes</b> de soldar: invertida, ela aquece e pode estufar."] },
+
+  { title: "GPS (opcional)", short: "GPS",
+    goal: "Receber frases NMEA na UART 1.",
+    parts: ["GPS NEO-6M ou NEO-M8N (confira se aceita 3,3 V)"],
+    wiring: [["GPS TX","GPIO39 (RX do ESP)","gps"],["GPS RX","GPIO48 (TX do ESP)","gps"],["VCC / GND","trilho + / trilho −","energia"]],
+    expect: ["Chegam frases <code>$GPGGA…</code> no Monitor Serial", "Ao ar livre, pega fix em alguns minutos"],
+    warn: ["DevKit v1.0: o GPIO 48 também acende o LED RGB. Inofensivo, mas ele pode piscar junto."],
+    code: `Serial1.begin(9600, SERIAL_8N1, 39, 48);  // RX, TX\nwhile (Serial1.available()) Serial.write(Serial1.read());` },
+
+  { title: "Bruce com tudo ligado", short: "Bruce",
+    goal: "O teste final: o firmware de verdade, com a pinagem do CURUPIRA, usando cada recurso pelos menus.",
+    parts: ["Fork do Bruce com uma placa custom para esta pinagem"],
+    expect: ["Navegação pelos 4 botões", "Tela com resolução e orientação certas", "SD: navegador de arquivos", "IR: receber e enviar", "RF: CC1101 recebe/transmite", "NRF24 funciona", "NFC: PN532 lê tags", "CardKB digita", "GPS (se montado)", "Leitura da bateria", "<b>Tudo OK → a placa está liberada para fabricar</b>"] }
+];
+
+/* ---------- desenho ---------- */
+const svg = document.getElementById("board");
+const NS = "http://www.w3.org/2000/svg";
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+function breadboard(b) {
+  const y0 = BY[b], x0 = 40, wdt = 916, hgt = 246;
+  let s = `<rect x="${x0}" y="${y0}" width="${wdt}" height="${hgt}" rx="8" fill="var(--bb)" stroke="var(--bb-edge)"/>`;
+  const gy = H(b,"e",0)[1] + (H(b,"f",0)[1] - H(b,"e",0)[1]) / 2;
+  s += `<rect x="${x0+6}" y="${gy-5}" width="${wdt-12}" height="10" rx="3" fill="var(--bb-gap)"/>`;
+  for (const [r1, r2, top] of [["tp","tm",true],["bp","bm",false]]) {
+    const yp = H(b,r1,0)[1], ym = H(b,r2,0)[1];
+    const lp = top ? yp - 8 : yp - 8, lm = top ? ym + 8 : ym + 8;
+    s += `<line x1="${x0+14}" x2="${x0+wdt-14}" y1="${lp}" y2="${lp}" stroke="var(--rail-p)" stroke-width="1.4"/>`;
+    s += `<line x1="${x0+14}" x2="${x0+wdt-14}" y1="${lm}" y2="${lm}" stroke="var(--rail-m)" stroke-width="1.4"/>`;
+    s += `<text class="rowlbl" x="${x0+5}" y="${yp+3}" fill="var(--rail-p)">+</text><text class="rowlbl" x="${x0+5}" y="${ym+3}">−</text>`;
+  }
+  let holes = "";
+  for (const r of Object.keys(RY)) for (let c = 0; c <= 62; c++) {
+    const [x, y] = H(b, r, c);
+    holes += `M${x-1.6} ${y-1.6}h3.2v3.2h-3.2z`;
+  }
+  s += `<path d="${holes}" fill="var(--hole)" opacity=".75"/>`;
+  for (const r of "abcdefghij") s += `<text class="rowlbl" x="${x0+8}" y="${H(b,r,0)[1]+3}">${r}</text>`;
+  for (const c of [1,10,20,30,40,50,60]) s += `<text class="rowlbl" text-anchor="middle" x="${H(b,"a",c)[0]}" y="${H(b,"a",c)[1]-9}">${c}</text>`;
+  s += `<text class="rowlbl" x="${x0+wdt-8}" y="${y0+hgt-6}" text-anchor="end">protoboard ${b === 1 ? "de cima" : "de baixo"}</text>`;
+  return s;
+}
+
+function wirePath(a, b) {
+  const [x1, y1] = a, [x2, y2] = b, dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+  let nx = -dy / len, ny = dx / len;
+  if (ny > 0 || (Math.abs(ny) < .15 && nx > 0)) { nx = -nx; ny = -ny; }
+  const k = Math.min(46, len * .16);
+  return `M${x1} ${y1}Q${(x1+x2)/2 + nx*k} ${(y1+y2)/2 + ny*k} ${x2} ${y2}`;
+}
+const legs = (a, b) => `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#9aa0a6" stroke-width="1.6"/>`;
+const pinDot = p => `<rect x="${p[0]-2.2}" y="${p[1]-2.2}" width="4.4" height="4.4" fill="#c9a23c"/>`;
+
+function drawEl(el) {
+  const c = COLORS[el.cat] || "#666";
+  switch (el.t) {
+    case "wire": {
+      const d = wirePath(el.a, el.b);
+      return `<path class="wire-o" d="${d}"/><path class="wire-c" d="${d}" stroke="${c}"/>` +
+        `<circle cx="${el.a[0]}" cy="${el.a[1]}" r="2.6" fill="${c}" stroke="#0006"/><circle cx="${el.b[0]}" cy="${el.b[1]}" r="2.6" fill="${c}" stroke="#0006"/>`;
+    }
+    case "res": case "diode": {
+      const [x1, y1] = el.a, [x2, y2] = el.b, ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+      const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, L = Math.hypot(x2 - x1, y2 - y1), bl = Math.max(12, Math.min(26, L * .62));
+      const body = el.t === "res"
+        ? `<rect x="${-bl/2}" y="-3.6" width="${bl}" height="7.2" rx="3.4" fill="#dcc08f" stroke="#8c7549" stroke-width=".8"/>` +
+          `<rect x="${-bl/2+3}" y="-3.6" width="1.8" height="7.2" fill="${c}"/><rect x="${-bl/2+6.5}" y="-3.6" width="1.8" height="7.2" fill="#333"/><rect x="${bl/2-4.5}" y="-3.6" width="1.6" height="7.2" fill="#b8860b"/>`
+        : `<rect x="${-bl/2}" y="-3.8" width="${bl}" height="7.6" rx="1.5" fill="#1e1e1e"/><rect x="${bl/2-4}" y="-3.8" width="2.2" height="7.6" fill="#cfd3d6"/>`;
+      const vert = Math.abs(ang % 180) > 45 && Math.abs(ang % 180) < 135;
+      const lx = mx + (vert ? 7 : 0), ly = my + (vert ? 3 : -8);
+      return legs(el.a, el.b) + `<g transform="translate(${mx} ${my}) rotate(${ang})">${body}</g>` + pinDot(el.a) + pinDot(el.b) +
+        `<text class="lbl" x="${lx}" y="${ly}" text-anchor="${vert ? "start" : "middle"}">${vert ? el.ref : el.ref + " " + el.val}</text>`;
+    }
+    case "led": {
+      const [x1, y1] = el.a, [x2, y2] = el.b, mx = (x1 + x2) / 2, my = Math.min(y1, y2) - 10;
+      return legs(el.a, [mx - 2, my]) + legs(el.b, [mx + 2, my]) +
+        `<circle cx="${mx}" cy="${my}" r="6.5" fill="${el.color}" stroke="#0005"/><circle cx="${mx-2}" cy="${my-2}" r="1.8" fill="#fff8"/>` +
+        pinDot(el.a) + pinDot(el.b) + `<text class="lbl" x="${mx}" y="${my-10}" text-anchor="middle">${el.ref}</text>`;
+    }
+    case "cap": {
+      const [x1, y1] = el.a, [x2] = el.b, mx = (x1 + x2) / 2, my = y1 - 9;
+      return legs(el.a, [mx - 2, my]) + legs(el.b, [mx + 2, my]) + `<ellipse cx="${mx}" cy="${my}" rx="6" ry="4.6" fill="#d9822b" stroke="#0004"/>` +
+        pinDot(el.a) + pinDot(el.b) + `<text class="lbl" x="${mx+10}" y="${my+3}">${el.ref} ${el.val}</text>`;
+    }
+    case "btn": {
+      const [xa, ye] = H(1,"e",el.c1), [xb, yf] = H(1,"f",el.c2);
+      const s = [H(1,"e",el.c1),H(1,"e",el.c2),H(1,"f",el.c1),H(1,"f",el.c2)].map(pinDot).join("");
+      return `<rect x="${xa-6}" y="${ye-5}" width="${xb-xa+12}" height="${yf-ye+10}" rx="2" fill="#2b2b2b" stroke="#000"/>` +
+        `<circle cx="${(xa+xb)/2}" cy="${(ye+yf)/2}" r="7" fill="#555" stroke="#111"/>` + s +
+        `<text class="lbl" x="${(xa+xb)/2}" y="${ye-9}" text-anchor="middle">${el.ref} ${el.name}</text>`;
+    }
+    case "tr": {
+      const p = [0,1,2].map(i => H(el.b, el.r, el.c + i)), [x0, y] = p[0], x2 = p[2][0];
+      return `<path d="M${x0-4} ${y-4}h${x2-x0+8}v-6a${(x2-x0+8)/2} 9 0 0 0 -${x2-x0+8} 0z" fill="#1e1e1e"/>` + p.map(pinDot).join("") +
+        `<text class="lbl" x="${x2+8}" y="${y-8}">Q1 BC337 (C B E)</text>`;
+    }
+    case "tsop": {
+      const p = [0,1,2].map(i => H(el.b, el.r, el.c + i)), [x0, y] = p[0], x2 = p[2][0];
+      return `<rect x="${x0-5}" y="${y-17}" width="${x2-x0+10}" height="13" rx="2" fill="#1e1e1e"/><circle cx="${(x0+x2)/2}" cy="${y-10}" r="4" fill="#3a3a3a"/>` +
+        p.map(pinDot).join("") + `<text class="lbl" x="${x2+9}" y="${y-8}">U2 TSOP38238 (OUT GND VS)</text>`;
+    }
+    case "sw": {
+      const p = [0,1,2].map(i => H(el.b, el.r, el.c + i)), [x0, y] = p[0], x2 = p[2][0];
+      return `<rect x="${x0-6}" y="${y-6}" width="${x2-x0+12}" height="12" rx="2" fill="#2d5aa8"/><rect x="${x0-1}" y="${y-11}" width="8" height="7" fill="#ddd" stroke="#555"/>` +
+        p.map(pinDot).join("") + `<text class="lbl" x="${(x0+x2)/2}" y="${y+17}" text-anchor="middle">SW5 LIGA</text>`;
+    }
+    case "devkit": return "";
+  }
+  return "";
+}
+
+function drawDevkit(step) {
+  const xL = BX + 2.4 * P, xR = BX + 31.3 * P, yT = H(1,"h",0)[1] + 5, yB = H(2,"c",0)[1] - 5;
+  let s = `<rect x="${xL}" y="${yT}" width="${xR-xL}" height="${yB-yT}" rx="4" fill="#202528" stroke="#000"/>`;
+  s += `<rect x="${BX + 16.6*P}" y="${yT+34}" width="${11.6*P}" height="${yB-yT-68}" rx="2" fill="#b9bfc4" stroke="#7d848a"/>`;
+  s += `<rect x="${BX + 28.2*P}" y="${yT+34}" width="${2.6*P}" height="${yB-yT-68}" rx="2" fill="#2a3a30"/>`;
+  s += `<text class="mod-t" x="${BX + 22.4*P}" y="${(yT+yB)/2-2}" text-anchor="middle" fill="#333" style="fill:#2a2f33">ESP32-S3</text>`;
+  s += `<text class="mod-s" x="${BX + 22.4*P}" y="${(yT+yB)/2+11}" text-anchor="middle" style="fill:#3d454b">WROOM-1 N16R8</text>`;
+  s += `<text class="mod-s" x="${BX + 29.5*P}" y="${(yT+yB)/2+3}" text-anchor="middle" style="fill:#8fb59c" transform="rotate(-90 ${BX + 29.5*P} ${(yT+yB)/2})">antena</text>`;
+  for (const [i, lbl] of [[0,"USB"],[1,"UART"]]) {
+    const y = yT + 40 + i * 44;
+    s += `<rect x="${BX + 0.6*P}" y="${y}" width="${2.4*P}" height="22" rx="3" fill="#b9bfc4" stroke="#6b7177"/>`;
+    s += `<text class="mod-s" x="${BX + 4*P}" y="${y+14}" style="fill:#c9d1d6">${lbl}</text>`;
+  }
+  s += `<text class="mod-t" x="${BX + 9.5*P}" y="${(yT+yB)/2+4}" text-anchor="middle">DevKitC-1</text>`;
+  const used = {};
+  for (const [st, hdr, n, cat] of PINUSE) if (st <= step) used[hdr + n] = cat;
+  for (let n = 1; n <= 22; n++) {
+    const c = col(n);
+    for (const [hdr, arr, b, r, dy] of [["J1", J1, 1, "i", 9], ["J3", J3, 2, "b", -9]]) {
+      const [x, y] = H(b, r, c), cat = used[hdr + n];
+      s += `<rect x="${x-2.6}" y="${y-2.6}" width="5.2" height="5.2" fill="#d6ad45"/>`;
+      const ly = y + dy, lbl = arr[n-1], wch = lbl.length * 4.6 + 4;
+      if (cat) s += `<rect x="${x-wch/2}" y="${ly-5.5}" width="${wch}" height="10" rx="2" fill="${COLORS[cat]}"/>`;
+      s += `<text class="pinlbl" x="${x}" y="${ly+2.6}" text-anchor="middle">${lbl}</text>`;
+    }
+  }
+  s += `<text class="mod-s" x="${xL+6}" y="${yT+20}" style="fill:#8a949b">J1 ↑</text><text class="mod-s" x="${xL+6}" y="${yB-14}" style="fill:#8a949b">J3 ↓</text>`;
+  return s;
+}
+
+function drawModule(id) {
+  const m = MODS[id];
+  let s = `<rect x="${m.x}" y="${m.y}" width="${m.w}" height="${m.h}" rx="6" fill="${m.fill}" stroke="#0007"/>`;
+  if (m.ant) s += `<rect x="${m.x + m.w - 22}" y="${m.y - 22}" width="10" height="30" rx="3" fill="#1b1b1b"/><rect x="${m.x+m.w-24}" y="${m.y+4}" width="14" height="10" fill="#c9a23c"/>`;
+  if (m.bat) s += `<rect x="${m.x + m.w + 8}" y="${m.y + 10}" width="70" height="40" rx="6" fill="#3b4d63" stroke="#0007"/><text class="mod-s" x="${m.x+m.w+43}" y="${m.y+34}" text-anchor="middle">LiPo 3,7 V</text><line x1="${m.x+m.w}" y1="${m.y+22}" x2="${m.x+m.w+8}" y2="${m.y+22}" stroke="#d64545" stroke-width="2"/><line x1="${m.x+m.w}" y1="${m.y+36}" x2="${m.x+m.w+8}" y2="${m.y+36}" stroke="#222" stroke-width="2"/>`;
+  if (id === "tft") s += `<rect x="${m.x+10}" y="${m.y+30}" width="${m.w-20}" height="42" rx="2" fill="#0b1220" stroke="#4b6a8f"/>`;
+  if (m.cap) s += `<rect x="${m.x+16}" y="${m.y+40}" width="14" height="22" rx="3" fill="#2f4fa8"/><text class="mod-s" x="${m.x+34}" y="${m.y+55}">+ 10–100 µF</text>`;
+  const tx = m.edge === "bottom" ? m.x + 10 : m.x + 14;
+  s += `<text class="mod-t" x="${tx}" y="${m.y + 16}">${esc(m.title)}</text><text class="mod-s" x="${tx}" y="${m.y + 27}">${esc(m.sub)}</text>`;
+  m.pins.forEach(p => {
+    const [x, y] = M(id, p);
+    s += pinDot([x, y]);
+    if (m.edge === "bottom") s += `<text class="mod-p" x="${x}" y="${y - 6}" text-anchor="end" transform="rotate(-90 ${x} ${y - 6})" dx="0" dy="2.6">${esc(p)}</text>`;
+    else s += `<text class="mod-p" x="${x + 7}" y="${y + 3}">${esc(p)}</text>`;
+  });
+  return s;
+}
+
+function tipFor(el) {
+  if (el.t === "wire") return el.tip;
+  if (el.t === "res" || el.t === "diode" || el.t === "cap") return `${el.ref} ${el.val}`;
+  if (el.t === "led") return el.ref === "D1" ? "D1 LED de status (perna longa = anodo)" : `${el.ref} LED IR 940 nm (perna longa = anodo)`;
+  if (el.t === "btn") return `${el.ref} ${el.name}`;
+  return el.ref || "";
+}
+
+function render(step) {
+  const focus = STEPS[step].focus;
+  let s = breadboard(1) + breadboard(2);
+  const cls = (st, cat) => {
+    if (st > step) return "el future";
+    let k = st === step ? "el now" : (step === STEPS.length - 1 ? "el" : "el past");
+    if (focus && cat === focus) k += " focus keep";
+    return k;
+  };
+  s += `<g class="el base ${step === 1 ? "now" : ""} ${step < 1 ? "future" : ""}">${step >= 1 ? drawDevkit(step) : ""}</g>`;
+  for (const id of Object.keys(MODS)) {
+    const m = MODS[id];
+    s += `<g class="${cls(m.step, m.cat)}"><title>${esc(m.title + " — " + m.sub)}</title>${drawModule(id)}</g>`;
+  }
+  const order = ["res","diode","cap","led","btn","tr","tsop","sw","wire"];
+  const els = E.filter(e => e.t !== "devkit").sort((a, b) => order.indexOf(a.t) - order.indexOf(b.t));
+  for (const el of els) s += `<g class="${cls(el.step, el.cat)}"><title>${esc(tipFor(el))}</title>${drawEl(el)}</g>`;
+  svg.innerHTML = s;
+}
+
+/* ---------- estado ---------- */
+const KEY = "curupira-teste-protoboard-v1";
+let state = { step: 0, checks: {}, notes: {} };
+try { const raw = localStorage.getItem(KEY); if (raw) state = Object.assign(state, JSON.parse(raw)); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const isDone = i => { const ex = STEPS[i].expect || []; return ex.length > 0 && ex.every((_, j) => state.checks[i + ":" + j]); };
+
+function renderStepper() {
+  const el = document.getElementById("stepper");
+  el.innerHTML = STEPS.map((s, i) =>
+    `<button type="button" data-i="${i}" class="${isDone(i) ? "done" : ""}" ${i === state.step ? 'aria-current="step"' : ""}><span class="num">${isDone(i) ? "✓" : i}</span>${s.short}</button>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => go(+b.dataset.i));
+  const cur = el.querySelector('[aria-current="step"]');
+  if (cur) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
+function renderPanel() {
+  const i = state.step, s = STEPS[i], p = document.getElementById("panel");
+  let h = `<div><div class="kicker">Passo ${i} de ${STEPS.length - 1}</div><h2>${s.title}</h2></div><p>${s.goal}</p>`;
+  if (s.parts) h += `<div><h3>O que colocar</h3><ul>${s.parts.map(x => `<li>${x}</li>`).join("")}</ul></div>`;
+  if (s.wiring) h += `<div><h3>Ligações</h3><table><thead><tr><th>De</th><th>Para</th></tr></thead><tbody>${s.wiring.map(([a, b, c]) =>
+    `<tr><td class="pin"><span class="dot" style="background:${COLORS[c]}"></span>${a}</td><td>${b}</td></tr>`).join("")}</tbody></table></div>`;
+  if (s.warn) h += `<div class="warn"><ul>${s.warn.map(x => `<li>${x}</li>`).join("")}</ul></div>`;
+  if (s.expect) h += `<div class="checks"><h3>O que esperar desta fase</h3>${s.expect.map((x, j) =>
+    `<label><input type="checkbox" data-k="${i}:${j}" ${state.checks[i + ":" + j] ? "checked" : ""}><span>${x}</span></label>`).join("")}</div>`;
+  if (s.code) h += `<div><h3>Sketch de teste</h3><pre><code>${esc(s.code)}</code></pre></div>`;
+  h += `<div><h3>Anotações</h3><textarea id="notes" placeholder="valores medidos, problemas, ajustes…">${esc(state.notes[i] || "")}</textarea></div>`;
+  h += `<div class="nav"><button type="button" id="prev" ${i === 0 ? "disabled" : ""}>← Anterior</button><span style="align-self:center;font-size:12px;color:var(--muted)"><kbd>←</kbd> <kbd>→</kbd></span><button type="button" class="primary" id="next" ${i === STEPS.length - 1 ? "disabled" : ""}>Próximo →</button></div>`;
+  p.innerHTML = h;
+  p.querySelectorAll("input[data-k]").forEach(c => c.onchange = () => { state.checks[c.dataset.k] = c.checked; save(); renderStepper(); });
+  const ta = p.querySelector("#notes"); ta.oninput = () => { state.notes[i] = ta.value; save(); };
+  p.querySelector("#prev").onclick = () => go(i - 1);
+  p.querySelector("#next").onclick = () => go(i + 1);
+}
+
+function go(i) {
+  state.step = Math.max(0, Math.min(STEPS.length - 1, i)); save();
+  render(state.step); renderStepper(); renderPanel();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("textarea, input")) return;
+  if (e.key === "ArrowRight") go(state.step + 1);
+  if (e.key === "ArrowLeft") go(state.step - 1);
+});
+document.getElementById("showPast").onchange = e => svg.classList.toggle("hide-past", !e.target.checked);
+document.getElementById("legend").innerHTML = LEGEND.map(([k, n]) => `<span><i style="background:${COLORS[k]}"></i>${n}</span>`).join("");
+
+const themes = ["auto", "light", "dark"], tNames = { auto: "automático", light: "claro", dark: "escuro" };
+let theme = "auto"; try { theme = localStorage.getItem(KEY + "-theme") || "auto"; } catch (e) {}
+const applyTheme = () => {
+  if (theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = theme;
+  document.getElementById("themeBtn").textContent = "Tema: " + tNames[theme];
+};
+document.getElementById("themeBtn").onclick = () => { theme = themes[(themes.indexOf(theme) + 1) % 3]; try { localStorage.setItem(KEY + "-theme", theme); } catch (e) {} applyTheme(); };
+applyTheme();
+const fromHash = () => { const m = /passo-(\d+)/.exec(location.hash); return m ? +m[1] : null; };
+window.addEventListener("hashchange", () => { const n = fromHash(); if (n !== null) go(n); });
+go(fromHash() ?? state.step);
+</script>
+</body>
+</html>

@@ -36,7 +36,7 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 - **v0.4.1** — placa 100×100 mm (2 camadas), 4 furos M3, **roteada e com DRC limpo** (0 violações). Gerbers em `production/curupira-v0.4.1-gerbers-jlcpcb.zip`.
 - **v0.4.1 (correção):** removida 1 via de GND que ficava sobre o furo do J9-1 (furos sobrepostos), texto "PN532" afastado do J2 e serigrafia com a versão atualizada. DRC só com os 2 avisos esperados da serigrafia do DevKit na borda.
 - **Novidades da v0.4:** buzzer removido (libera o GPIO3), **2 emissores de IR** (D3+D5 nos cantos de cima, mais alcance/cobertura), re-posicionamento dos componentes e **re-roteamento completo**, plano de GND costurado com vias de stitching, microSD remapeado p/ módulo 3,3 V.
-- **Ainda não fabricada** — plano: validar na **protoboard** antes de mandar fazer → [plano de teste](docs/TESTE_PROTOBOARD.md).
+- **Ainda não fabricada** — plano: validar na **protoboard** antes de mandar fazer → [plano de teste](docs/TESTE_PROTOBOARD.md) (versão interativa: `docs/teste-protoboard.html`).
 
 ## Renders
 
@@ -59,6 +59,7 @@ renders/                → renders atuais da placa e do esquemático (gerar.sh 
 lib/                    → biblioteca local da Espressif (símbolo + footprint do DevKit)
 docs/pinagem.html       → diagrama interativo da pinagem do ESP32 (abrir no navegador)
 docs/TESTE_PROTOBOARD.md → plano de teste bloco a bloco na protoboard, antes de fabricar
+docs/teste-protoboard.html → o mesmo plano como manual interativo (protoboard desenhada passo a passo)
 arte/                   → logo CURUPIRA: rosto colorido (README), rosto e corpo em P&B (serigrafia), versões transparentes
 production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 ```

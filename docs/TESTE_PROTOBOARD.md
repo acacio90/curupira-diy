@@ -7,6 +7,7 @@ Tudo que der errado aqui custa um jumper; na placa custa um pedido novo.
 e **não desmonte** os blocos anteriores: o teste final é tudo ligado junto.
 
 Pinagem de referência: [`GUIA.md`](../GUIA.md) e `docs/pinagem.html`.
+Versão interativa deste plano, com a protoboard desenhada passo a passo: `docs/teste-protoboard.html`.
 Ligue os módulos **pelo nome do pino impresso neles** (VCC, CSN, MOSI…), nunca pela posição.
 
 ---
