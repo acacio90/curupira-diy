@@ -8100,6 +8100,7 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
+			(net "unconnected-(U1-GPIO3{slash}ADC1_CH2-Pad13)")
 			(uuid "a76ac1d0-6db6-4a8d-b20e-addaaf49da4f")
 		)
 		(pad "14" thru_hole oval
@@ -10187,7 +10188,7 @@
 			)
 		)
 	)
-	(gr_text "v0.3 - ESP32-S3 - Bruce"
+	(gr_text "v0.4.1 - ESP32-S3 - Bruce"
 		(at 131.37 141.6 0)
 		(layer "F.SilkS")
 		(uuid "ea102987-1d71-4d17-944e-ebf065abe103")
@@ -10288,7 +10289,7 @@
 		)
 	)
 	(gr_text "PN532"
-		(at 110.5 88.3 0)
+		(at 112 91.4 0)
 		(layer "B.SilkS")
 		(uuid "0ab3e086-3fb3-4cfe-9aaf-f57fbccb7d76")
 		(effects
@@ -10335,7 +10336,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "v0.3 - ESP32-S3 - Bruce"
+	(gr_text "v0.4.1 - ESP32-S3 - Bruce"
 		(at 144.67 120.67 0)
 		(layer "B.SilkS")
 		(uuid "252beab4-84e6-444b-9bcb-580ab9b4f089")
@@ -11389,14 +11390,6 @@
 		(layers "F.Cu" "B.Cu")
 		(net "GND")
 		(uuid "ecac82c0-eaaa-4688-b525-3ebcc87deb92")
-	)
-	(via
-		(at 158.95 91.95)
-		(size 0.7)
-		(drill 0.35)
-		(layers "F.Cu" "B.Cu")
-		(net "GND")
-		(uuid "ed9e2acc-f02f-45e2-92ed-9ae8f146118d")
 	)
 	(via
 		(at 188.95 64.95)

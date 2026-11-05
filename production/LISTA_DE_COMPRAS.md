@@ -1,4 +1,4 @@
-# CURUPIRA v0.4 — lista de compras
+# CURUPIRA v0.4.1 — lista de compras
 
 Preços são **estimativas** (AliExpress / Mercado Livre, nov/2026) — variam bastante.
 Componentes passivos saem muito mais baratos em kits/sortimentos.
@@ -7,7 +7,7 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 
 | Item | Qtd | Obs. | ~Preço |
 |---|---|---|---|
-| PCB 100 × 100 mm, 2 camadas, 1,6 mm, HASL | 5 (mínimo) | enviar `production/curupira-v0.4-gerbers-jlcpcb.zip` | US$ 2–5 + frete + impostos (~R$ 70–180 no total) |
+| PCB 100 × 100 mm, 2 camadas, 1,6 mm, HASL | 5 (mínimo) | enviar `production/curupira-v0.4.1-gerbers-jlcpcb.zip` | US$ 2–5 + frete + impostos (~R$ 70–180 no total) |
 
 ## 2. Componentes da placa (BOM — `production/bom.csv`)
 

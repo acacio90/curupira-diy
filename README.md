@@ -33,7 +33,8 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 
 ## Estado do projeto
 
-- **v0.4** — placa 100×100 mm (2 camadas), 4 furos M3, **roteada e com DRC limpo** (0 violações). Gerbers em `production/curupira-v0.4-gerbers-jlcpcb.zip`.
+- **v0.4.1** — placa 100×100 mm (2 camadas), 4 furos M3, **roteada e com DRC limpo** (0 violações). Gerbers em `production/curupira-v0.4.1-gerbers-jlcpcb.zip`.
+- **v0.4.1 (correção):** removida 1 via de GND que ficava sobre o furo do J9-1 (furos sobrepostos), texto "PN532" afastado do J2 e serigrafia com a versão atualizada. DRC só com os 2 avisos esperados da serigrafia do DevKit na borda.
 - **Novidades da v0.4:** buzzer removido (libera o GPIO3), **2 emissores de IR** (D3+D5 nos cantos de cima, mais alcance/cobertura), re-posicionamento dos componentes e **re-roteamento completo**, plano de GND costurado com vias de stitching, microSD remapeado p/ módulo 3,3 V.
 - **Ainda não fabricada** — plano: validar na **protoboard** antes de mandar fazer → [plano de teste](docs/TESTE_PROTOBOARD.md).
 
@@ -52,7 +53,7 @@ git clone git@github.com:acacio90/curupira-diy.git
 ```
 curupira-diy.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
 GUIA.md                 → mapa de pinos (GPIO ↔ cada conector)
-production/             → Gerbers v0.4 (JLCPCB), BOM (bom.csv), lista de compras
+production/             → Gerbers v0.4.1 (JLCPCB), BOM (bom.csv), lista de compras
 renders/                → renders atuais da placa e do esquemático (gerar.sh recria tudo)
 3d/                     → modelos 3D de todos os módulos e peças (ver 3d/LEIA-ME.md)
 lib/                    → biblioteca local da Espressif (símbolo + footprint do DevKit)
@@ -64,7 +65,7 @@ production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 
 ## Como fabricar
 
-1. Envie `production/curupira-v0.4-gerbers-jlcpcb.zip` para a JLCPCB (2 camadas, 1,6 mm, HASL).
+1. Envie `production/curupira-v0.4.1-gerbers-jlcpcb.zip` para a JLCPCB (2 camadas, 1,6 mm, HASL).
 2. Compre as peças pela `production/LISTA_DE_COMPRAS.md`.
 3. Solde os THT à mão; encaixe o DevKit nas barras fêmea.
 4. Confira continuidade **3V3 ↔ GND** com multímetro **antes** de ligar.

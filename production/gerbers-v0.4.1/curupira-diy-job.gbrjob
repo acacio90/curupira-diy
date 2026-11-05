@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "10.0.6+dfsg-1"
     },
-    "CreationDate": "2026-11-05T01:04:59-03:00"
+    "CreationDate": "2026-11-05T13:03:23-03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -34,88 +34,38 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "curupira-diy-F_Cu.gbr",
+      "Path": "curupira-diy-F_Cu.gtl",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "curupira-diy-B_Cu.gbr",
+      "Path": "curupira-diy-B_Cu.gbl",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "curupira-diy-F_Adhesive.gbr",
-      "FileFunction": "Glue,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-B_Adhesive.gbr",
-      "FileFunction": "Glue,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-F_Silkscreen.gbr",
+      "Path": "curupira-diy-F_Silkscreen.gto",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "curupira-diy-B_Silkscreen.gbr",
+      "Path": "curupira-diy-B_Silkscreen.gbo",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "curupira-diy-F_Mask.gbr",
+      "Path": "curupira-diy-F_Mask.gts",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "curupira-diy-B_Mask.gbr",
+      "Path": "curupira-diy-B_Mask.gbs",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "curupira-diy-User_Drawings.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-User_Comments.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-User_Eco1.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-User_Eco2.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-Edge_Cuts.gbr",
+      "Path": "curupira-diy-Edge_Cuts.gm1",
       "FileFunction": "Profile",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-F_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "curupira-diy-B_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Bot",
       "FilePolarity": "Positive"
     }
   ],
