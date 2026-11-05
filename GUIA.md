@@ -28,9 +28,9 @@ Tudo componente PTH (furo passante) → fácil de soldar com ferro comum.
 | Tela DC | 9 | |
 | Tela RST | 14 | |
 | Tela BLK (backlight) | 21 | dá para usar PWM para brilho |
-| CC1101 CS | 15 | J3 pino 4 (CSN) |
+| CC1101 CS | 15 | J3-6 (CSN do módulo, pino 4) |
 | NRF24 CS | 16 | J9 pino 4 (CSN) |
-| CC1101 GDO0 (IRQ) | 17 | J3 pino 3 |
+| CC1101 GDO0 (IRQ) | 17 | J3-5 (GDO0 do módulo, pino 3) |
 | NRF24 CE | 40 | J9 pino 3 |
 | I2C SDA | 8 | Qwiic/Grove |
 | I2C SCL | 18 | |

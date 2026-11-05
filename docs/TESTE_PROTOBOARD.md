@@ -122,14 +122,12 @@ Teste com **IRremoteESP8266**: receba o código de um controle remoto (RX), depo
 Teste: lib **SmartRC-CC1101-Driver-Lib** (ELECHOUSE) → `ELECHOUSE_cc1101.getCC1101()` retorna true.
 ✅ detecta o chip; ✅ recebe o sinal de um controle 433 MHz seu (portão/tomada RF) em modo RX.
 
-> ### ⚠️ Conferir o J3 antes de fabricar
-> No esquemático, o J3 (2×4) está assim: **1=MISO, 2=livre, 3=SCK, 4=MOSI, 5=GDO0, 6=CSN, 7=GND, 8=3V3**.
-> Os módulos CC1101 2×4 mais comuns têm: 1=GND, 2=VCC, 3=GDO0, 4=CSN, 5=SCK, 6=MOSI, 7=MISO, 8=GDO2
-> (é essa ordem que o `GUIA.md` cita). O J3 é **essa ordem com as fileiras espelhadas**, o que faz
-> sentido se for de propósito, já que o CC1101 fica no **verso** da placa.
-> **Com o SEU módulo na mão:** veja a serigrafia dele e, no KiCad (3D, `Alt+3`, vista de baixo),
-> confira que ao encaixá-lo no J3 o pino **VCC cai no 3V3 e o GND no GND**. Se não bater,
-> 3V3 vai pro MISO — corrija o J3 **antes** de pedir a placa.
+> ### Conferir o módulo × J3
+> O J3 foi desenhado para o **EBYTE E07-M1101D** (+ SMA) encaixado **de face pra fora** no verso,
+> por isso a numeração do J3 é diferente da do módulo (ver `GUIA.md`, tabela do verso):
+> J3-1 MISO · J3-2 livre (GDO2) · J3-3 SCK · J3-4 MOSI · J3-5 GDO0 · J3-6 CSN · J3-7 GND · J3-8 VCC.
+> Basta confirmar que **o seu módulo é o E07-M1101D (ou tem a mesma pinagem)**. Se comprar outro
+> CC1101, compare a serigrafia dele com essa tabela antes de pedir a placa.
 
 ## 8. NRF24L01+PA+LNA (2,4 GHz)
 
@@ -202,7 +200,7 @@ teclado CardKB, GPS, leitura de bateria.
 | 4 | microSD | ⬜ | |
 | 5 | I2C (PN532 + CardKB) | ⬜ | |
 | 6 | IR RX/TX | ⬜ | alcance: |
-| 7 | CC1101 + **conferência do J3** | ⬜ | |
+| 7 | CC1101 (módulo = E07-M1101D?) | ⬜ | |
 | 8 | NRF24 | ⬜ | |
 | 9 | SPI completo | ⬜ | |
 | 10 | Energia | ⬜ | consumo: · ADC: |
