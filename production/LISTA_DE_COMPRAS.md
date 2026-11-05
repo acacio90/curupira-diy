@@ -1,4 +1,4 @@
-# CURUPIRA v0.3 — lista de compras
+# CURUPIRA v0.4 — lista de compras
 
 Preços são **estimativas** (AliExpress / Mercado Livre, nov/2026) — variam bastante.
 Componentes passivos saem muito mais baratos em kits/sortimentos.
@@ -7,7 +7,7 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 
 | Item | Qtd | Obs. | ~Preço |
 |---|---|---|---|
-| PCB 100 × 100 mm, 2 camadas, 1,6 mm, HASL | 5 (mínimo) | enviar `production/curupira-v0.3-gerbers-jlcpcb.zip` | US$ 2–5 + frete + impostos (~R$ 70–180 no total) |
+| PCB 100 × 100 mm, 2 camadas, 1,6 mm, HASL | 5 (mínimo) | enviar `production/curupira-v0.4-gerbers-jlcpcb.zip` | US$ 2–5 + frete + impostos (~R$ 70–180 no total) |
 
 ## 2. Componentes da placa (BOM — `production/bom.csv`)
 
@@ -18,22 +18,22 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 | U1 | ↳ cortar **2× 1×22** fêmea | 2 | DevKit (2 fileiras) | ↑ incluso |
 | J1 | ↳ cortar **1×8** fêmea | 1 | tela | ↑ |
 | J2 | ↳ cortar **1×4** fêmea | 1 | I2C / PN532 | ↑ |
-| J3 | ↳ cortar **1×9** fêmea | 1 | SPI: CC1101 + NRF24 | ↑ |
+| J3 | ↳ cortar **2× 1×4** fêmea (lado a lado = 2×4) | 2 | CC1101 (encaixe direto) | ↑ |
 | J4 | ↳ cortar **1×6** fêmea | 1 | módulo microSD | ↑ |
 | J6 | ↳ cortar **1×4** fêmea | 1 | GPS (opcional) | ↑ |
-| J7 | ↳ cortar **1×5** fêmea | 1 | alto-falante (MAX98357A) | ↑ |
 | J8 | ↳ cortar **1×4** fêmea | 1 | I2C extra (paralelo c/ J2) | ↑ |
+| J9 | ↳ cortar **2× 1×4** fêmea (lado a lado = 2×4) | 2 | NRF24L01+PA+LNA (encaixe direto) | ↑ |
 | J5 | Barra **macho** 1×2 *(ou 2 fios soldados)* | 1 | saída do TP4056 (bateria) — **item à parte** | centavos |
 | — | Barra **macho 90° (em L)** 1×8 | 1 | soldada **na tela**, pra ela deitar — **item à parte** | R$ 2–5 |
 | SW1–SW4 | Botão táctil 6×6 mm THT (4 pinos) | 4 | altura 5–7 mm | R$ 5 (kit) |
 | SW5 | Chave deslizante SPDT, passo 2,54 mm (tipo SS12D00 / OS102011MS2Q) | 1 | | R$ 2–5 |
 | D1 | LED 3 mm (qualquer cor) | 1 | | centavos |
 | D2 | Diodo Schottky **1N5817** | 1 | | centavos |
-| D3 | LED **infravermelho 940 nm 5 mm** | 1 | não confundir com 850 nm | R$ 1–3 |
+| D3, D5 | LED **infravermelho 940 nm 5 mm** | 2 | não confundir com 850 nm; os 2 em paralelo (cantos de cima) | R$ 2–6 |
 | Q1 | Transistor **BC337** (TO-92) | 1 | ordem dos pinos **C-B-E** | centavos |
 | U2 | Receptor IR **TSOP38238** (38 kHz) | 1 | VS1838B é alternativa barata (confira a pinagem: OUT-GND-VCC) | R$ 3–8 |
 | R1 | Resistor 330 Ω ¼ W | 1 | | |
-| R2 | Resistor **22 Ω** ¼ W | 1 | | |
+| R2, R10 | Resistor **22 Ω** ¼ W | 2 | 1 por LED IR (D3, D5) | |
 | R3 | Resistor 1 kΩ ¼ W | 1 | | |
 | R4, R5 | Resistor 100 kΩ ¼ W | 2 | | |
 | R6, R7, R8 | Resistor **10 kΩ** ¼ W | 3 | pull-ups dos CS do SPI (SD, CC1101, NRF24) | |
@@ -41,9 +41,11 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 | C1, C2 | Capacitor cerâmico 100 nF (104), passo 2,5 mm | 2 | | centavos |
 
 > **Plano de corte da barra fêmea 1×40** — regra: pra ter **N** pinos, corte **no furo N+1** (perde 1 posição por corte).
-> - **Tira 1:** 22 → 9 → 6  → *(U1 fileira 1, J3, J4)*
-> - **Tira 2:** 22 → 8 → 5  → *(U1 fileira 2, J1, J7)*
-> - **Tira 3:** 4 → 4 → 4  → *(J2, J6, J8)*
+> - **Tira 1:** 22 → 8 → 6  → *(U1 fileira 1, J1, J4)*
+> - **Tira 2:** 22 → 4 → 4 → 4  → *(U1 fileira 2, J2, J6, J8)*
+> - **Tira 3:** 4 → 4 → 4 → 4  → *(J3 e J9: duas 1×4 lado a lado em cada)*
+>
+> Alternativa para J3/J9: comprar **barra fêmea 2×4 (dupla)** pronta — fica mais alinhada que duas 1×4.
 >
 > Usa só ~3 das 10 tiras do pacote; o resto é folga pra treinar o corte. Lixe a ponta cortada pra ficar reta.
 > **J5 e a barra 90° da tela são MACHO** — não saem dessa barra fêmea, compre à parte (ou J5 com fio direto).
@@ -61,13 +63,11 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 |---|---|---|---|---|
 | **Módulo microSD SPI 3,3 V** ✅ *(escolhido)* | 1 | J4 | 3,3 V nativo (SEM AMS1117), 18,5×17,5 mm. Ordem **3V3, CS, MOSI, CLK, MISO, GND** — **J4 já remapeado p/ ele**. ⚠️ NÃO usar o de 5V (HW-125) | R$ 8–15 |
 | Cartão microSD 4–32 GB (FAT32) | 1 | — | | R$ 20–30 |
-| **CC1101** (Sub-GHz) | 1 | J3 (CS1, GDO0) | escolha a frequência da antena (433 MHz é o comum) | R$ 15–30 |
-| **NRF24L01+PA+LNA** | 1 | J3 (CS2, CE) | + **capacitor eletrolítico 10–100 µF** soldado no VCC/GND do módulo | R$ 15–35 |
+| **CC1101** (Sub-GHz) | 1 | J3 (CS1, GDO0) — encaixe direto, antena SMA pra fora da borda | escolha a frequência da antena (433 MHz é o comum) | R$ 15–30 |
+| **NRF24L01+PA+LNA** | 1 | J9 (CS2, CE) — encaixe direto | + **capacitor eletrolítico 10–100 µF** soldado no VCC/GND do módulo | R$ 15–35 |
 | **PN532** NFC/RFID (placa vermelha) | 1 | J2 (I2C) | coloque a chave do módulo em **I2C** | R$ 30–50 |
 | **M5Stack CardKB** (teclado I2C, endereço 0x5F) | 1 | J8 | vem com cabo Grove: use um cabo **Grove → dupont fêmea** (ou corte e crimpe). Preto=GND→pino 1, vermelho=VCC→pino 2 (3V3), amarelo=SDA→pino 3, branco=SCL→pino 4 | US$ 10–15 |
-| **MAX98357A** (amplificador I2S) | 1 | J7 | GND, VIN, BCLK, LRC, DIN — deixe GAIN e SD soltos | R$ 15–25 |
-| Alto-falante 4–8 Ω, 1–3 W (28–40 mm) | 1 | bornes do MAX98357A | | R$ 5–15 |
-| Cabos jumper fêmea-fêmea 10–20 cm | 1 pacote | módulos ↔ J2/J3/J6 | | R$ 8–15 |
+| Cabos jumper fêmea-fêmea 10–20 cm | 1 pacote | módulos ↔ J2/J6 (PN532, GPS) | | R$ 8–15 |
 | *(opcional, futuro)* GPS **NEO-6M / NEO-M8N** | 1 | J6 (UART) | TX do GPS → J6 pino 3, RX do GPS → J6 pino 4. Confira se funciona em 3,3 V | R$ 30–60 |
 
 ## 5. Bateria
@@ -96,7 +96,7 @@ Componentes passivos saem muito mais baratos em kits/sortimentos.
 
 ---
 
-**Total aproximado** (sem ferramentas, sem frete da JLCPCB): **R$ 300–550**, dependendo dos módulos e de onde comprar.
+**Total aproximado** (sem ferramentas, sem frete da JLCPCB): **R$ 280–510**, dependendo dos módulos e de onde comprar.
 
 ### Ordem de montagem sugerida
 1. Componentes baixos primeiro: resistores, diodos, capacitores, BC337.

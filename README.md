@@ -4,7 +4,7 @@
 
   # CURUPIRA
 
-  **Dispositivo portátil estilo Cardputer rodando [Bruce](https://github.com/pr3y/Bruce) — ESP32-S3, feito pra montar à mão (THT).**
+  **Dispositivo portátil estilo Cardputer rodando [Bruce](https://github.com/BruceDevices/firmware) — ESP32-S3, feito pra montar à mão (THT).**
 </div>
 
 ---
@@ -25,7 +25,7 @@ CURUPIRA é uma PCB DIY, inspirada no M5Stack Cardputer, projetada no **KiCad** 
 | 2.4 GHz | NRF24L01+PA+LNA | J9 |
 | NFC/RFID | PN532 (I2C) | J2 |
 | Armazenamento | microSD (SPI, 3,3 V) | J4 |
-| Infravermelho | TSOP38238 (RX) + LED IR 940 nm (TX) | U2/D3 |
+| Infravermelho | TSOP38238 (RX) + 2× LED IR 940 nm (TX) | U2/D3/D5 |
 | Teclado | M5Stack CardKB (I2C) | J8 |
 | GPS (opcional) | NEO-6M / NEO-M8N (UART) | J6 |
 | Energia | TP4056 (USB-C) + LiPo 3,7 V | J5 |
@@ -52,7 +52,7 @@ git clone git@github.com:acacio90/curupira-diy.git
 ```
 curupira-diy.kicad_pro / .kicad_sch / .kicad_pcb   → projeto KiCad
 GUIA.md                 → mapa de pinos (GPIO ↔ cada conector)
-production/             → Gerbers (JLCPCB), BOM, renders 3D
+production/             → Gerbers v0.4 (JLCPCB), BOM (bom.csv), lista de compras
 renders/                → renders atuais da placa e do esquemático (gerar.sh recria tudo)
 3d/                     → modelos 3D de todos os módulos e peças (ver 3d/LEIA-ME.md)
 lib/                    → biblioteca local da Espressif (símbolo + footprint do DevKit)
@@ -70,7 +70,7 @@ production/LISTA_DE_COMPRAS.md → lista de compras com links e preços
 
 ## Créditos
 
-- Firmware: **Bruce** (pr3y e colaboradores).
+- Firmware: **Bruce** (BruceDevices / pr3y e colaboradores).
 - Projeto de hardware: CURUPIRA.
 
 ## Licença

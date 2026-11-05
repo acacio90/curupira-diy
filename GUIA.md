@@ -132,7 +132,7 @@ ler os botões; depois a tela com TFT_eSPI ou LovyanGFX.
 
 ## Depois da v0.3 (em andamento — arranjo "handheld")
 
-> A placa roteada da v0.3 está só nos Gerbers (`production/`). O `.kicad_pcb` atual está
+> *(Histórico.)* A placa roteada da v0.3 está na tag git `v0.3.0`. Nesta fase, o `.kicad_pcb` estava
 > **sem trilhas e sem plano de GND** (90 ligações pendentes no DRC), porque os componentes
 > estão sendo reposicionados.
 
